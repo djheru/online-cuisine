@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "online-cuisine",
+      "script": "server.js",
+      "error_file" : "logs/err.log",
+      "out_file"   : "logs/out.log",
+      "env": {
+        "NODE_ENV": "development",
+        "NODE_PORT": 3000
+      }
+    }
+  ]
+}
