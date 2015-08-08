@@ -35,8 +35,12 @@ module.exports = {
                 "profile": "/profile",
                 "link": "/profile/link",
                 "addresses": "/profile/addresses",
+                "address": "/profile/address/:addressId",//for edit
+                "addressDelete": "/profile/address/:addressId/delete",//for delete
                 "companions": "/profile/companions",
+                "companion": "/profile/companion/:companionId/delete",//for delete
                 "favorites": "/profile/favorites",
+                "favorite": "/profile/favorite/:favoriteId/delete",//for delete
                 "orders": "/profile/orders",
                 "redirect": {
                     "successRedirect": "/profile"
@@ -49,8 +53,8 @@ module.exports = {
                 "order": "/order",
                 "checkout": "/checkout",
                 "payment": "/payment",
-                "contact": "contact",
-                "deals": "deals",
+                "contact": "/contact",
+                "deals": "/deals",
                 "signup": "/signup",
                 "login": "/login",
                 "logout": "/logout",
