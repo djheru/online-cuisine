@@ -1,7 +1,7 @@
 // Middleware to play with req and res before rendering the page
 var _ = require('underscore'),
     moment = require('moment'),
-    models = require('../../models')();
+    models = require('../../models');
 module.exports = {
 
     "isLoggedIn": function (req, res, next) {

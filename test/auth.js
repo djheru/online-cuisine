@@ -5,7 +5,7 @@ var app = require('../server')
     })
     , _ = require('underscore')
     , should = require('should')
-    , models = require('../app/models')()
+    , models = require('../app/models')
     , $ = require('cheerio')
     , csrf = ''
 

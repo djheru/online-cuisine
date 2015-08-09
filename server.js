@@ -34,7 +34,7 @@ conn.once('open', function(){
 });
 
 //models ==================================================
-var models = require('./app/models')();
+var models = require('./app/models');
 
 // pass passport for configuration ========================
 require('./app/services/passport')(passport, models);

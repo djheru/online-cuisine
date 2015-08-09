@@ -3,7 +3,7 @@
 //=========================================================
 
 var config = appGlobals.config.get('app').routes;
-var models = require('../models')();
+var models = require('../models');
 var mailer = require('../services/mailer')();
 
 module.exports = function (express, passport) {
