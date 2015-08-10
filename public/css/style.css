@@ -14,6 +14,10 @@ span.fa-navicon {
     color: #ffffff;
 }
 
+.navbar > .container-fluid > .navbar-header {
+    margin-right: 20px;
+}
+
 .well, .jumbotron {
     word-wrap: break-word;
     background-color: #F2F2F2;
@@ -145,3 +149,6 @@ input.multiselect-search {
     background: url('../img/first_aid_kit.png');
 }
 
+.btn-social {
+    margin-bottom: 10px;
+}
