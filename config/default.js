@@ -18,8 +18,7 @@ module.exports = {
                     "facebook",
                     "google",
                     "local",
-                    "twitter",
-                    "github"
+                    "twitter"
                 ],
                 "authentication": "/auth/:provider",
                 "authorization": "/link/:provider",

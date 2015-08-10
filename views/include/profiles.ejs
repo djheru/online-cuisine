@@ -1,7 +1,7 @@
 <div class="row">
 
     <!-- LOCAL INFORMATION -->
-    <div class="col-sm-12">
+    <div class="col-xs-12">
         <div class="well profile-sm">
             <h4><span class="fa fa-user"></span> Local Login</h4>
 
@@ -17,7 +17,7 @@
     </div>
 
     <!-- FACEBOOK INFORMATION -->
-    <div class="col-sm-6">
+    <div class="col-sm-12">
         <div class="well profile">
             <h4 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h4>
 
@@ -36,7 +36,7 @@
     </div>
 
     <!-- TWITTER INFORMATION -->
-    <div class="col-sm-6">
+    <div class="col-sm-12">
         <div class="well profile">
             <h4 class="text-info"><span class="fa fa-twitter"></span> Twitter</h4>
 
@@ -55,7 +55,7 @@
     </div>
 
     <!-- GOOGLE INFORMATION -->
-    <div class="col-sm-6">
+    <div class="col-sm-12">
         <div class="well profile">
             <h4 class="text-danger"><span class="fa fa-google-plus"></span> Google+</h4>
 
@@ -68,25 +68,6 @@
             </p>
             <% } else { %>
             <a href="/link/google" class="btn btn-social btn-google-plus"><span class="fa fa-google-plus"></span> Create Google Login</a>
-            <% } %>
-
-        </div>
-    </div>
-
-    <!-- GITHUB INFORMATION -->
-    <div class="col-sm-6">
-        <div class="well profile">
-            <h4 class="text-primary"><span class="fa fa-github-alt"></span> Github</h4>
-
-            <!-- check if the user has this token (is the user authenticated with this account) -->
-            <% if (locals.user && locals.user.github.token) { %>
-            <a href="/unlink/github" class="btn btn-social btn-github"><span class="fa fa-github"></span> Unlink Github Account</a>
-            <p class="padding-top-2">
-                <strong>email</strong>: <%= locals.user.github.email %><br>
-                <strong>display name</strong>: <%= locals.user.github.displayName %>
-            </p>
-            <% } else { %>
-            <a href="/link/github" class="btn btn-social btn-github"><span class="fa fa-github"></span> Create Github Account</a>
             <% } %>
 
         </div>

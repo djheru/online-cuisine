@@ -33,12 +33,6 @@ module.exports = function(){
             token: String,
             email: String,
             displayName: String
-        },
-        github: {
-            id: String,
-            token: String,
-            email: String,
-            displayName: String
         }
     });
 

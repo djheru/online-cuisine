@@ -14,6 +14,11 @@ span.fa-navicon {
     color: #ffffff;
 }
 
+nav.navbar  {
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
 .navbar > .container-fluid > .navbar-header {
     margin-right: 20px;
 }
@@ -24,7 +29,7 @@ span.fa-navicon {
 }
 
 .well.profile {
-    height: 190px;
+    max-height: 190px;
 }
 
 .well.profile-sm {
