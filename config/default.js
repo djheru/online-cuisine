@@ -49,7 +49,10 @@ module.exports = {
             "public": {
                 "home": "/",
                 "menu": "/menu",
+                "menuItem": "/menu/:itemId",
                 "order": "/order",
+                "orderItem": "/order/:itemId",
+                "editOrderItem": "/order/:itemId/edit",
                 "checkout": "/checkout",
                 "payment": "/payment",
                 "contact": "/contact",
