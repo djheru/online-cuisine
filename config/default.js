@@ -13,6 +13,10 @@ module.exports = {
 
         "routes": {
 
+            "admin": {
+                "seed": "/seed/:seedCount"
+            },
+
             "passport": {
                 "authProviders": [
                     "facebook",
@@ -41,7 +45,6 @@ module.exports = {
                 "favorites": "/profile/favorites",
                 "favorite": "/profile/favorite/:favoriteId/delete",//for delete
                 "orders": "/profile/orders",
-                "seed": "/seed/:seedCount",
                 "redirect": {
                     "successRedirect": "/profile"
                 }

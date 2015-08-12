@@ -24,12 +24,10 @@ module.exports = function (express, passport) {
     //Favorite id param
     routeExport.param('favoriteId', handlers.params.favoriteId);
 
-    //Seed count param
-    routeExport.param('seedCount', handlers.params.seedCount);
-
     //profile page
     routeExport.route(config.protected.profile)
         .get(handlers.profile.get);
+
     //link local account to existing provider login
     routeExport.route(config.protected.link)
         .get(handlers.link.get);
@@ -38,10 +36,12 @@ module.exports = function (express, passport) {
     routeExport.route(config.protected.addresses)
         .get(handlers.createAddress.get)
         .post(handlers.createAddress.post);
+
     //edit address
     routeExport.route(config.protected.address)
         .get(handlers.editAddress.get)
         .post(handlers.editAddress.post);
+
     //delete address
     routeExport.route(config.protected.addressDelete)
         .get(handlers.deleteAddress.get)
@@ -64,10 +64,6 @@ module.exports = function (express, passport) {
     //order history
     routeExport.route(config.protected.orders)
         .get(handlers.orders.get);
-
-    //seeding
-    routeExport.route(config.protected.seed)
-        .get(handlers.seed.get);
 
     return routeExport;
 };

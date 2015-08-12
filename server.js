@@ -129,6 +129,7 @@ app.use('/', routes.public);
 app.use('/', routes.passport);
 app.use('/', routes.protected);
 app.use('/', routes.menu);
+app.use('/', routes.admin);
 
 //catch errors ============================================
 app.use(middleware.logErrors);
