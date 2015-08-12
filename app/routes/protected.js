@@ -24,6 +24,9 @@ module.exports = function (express, passport) {
     //Favorite id param
     routeExport.param('favoriteId', handlers.params.favoriteId);
 
+    //Seed count param
+    routeExport.param('seedCount', handlers.params.seedCount);
+
     //profile page
     routeExport.route(config.protected.profile)
         .get(handlers.profile.get);
@@ -61,6 +64,10 @@ module.exports = function (express, passport) {
     //order history
     routeExport.route(config.protected.orders)
         .get(handlers.orders.get);
+
+    //seeding
+    routeExport.route(config.protected.seed)
+        .get(handlers.seed.get);
 
     return routeExport;
 };

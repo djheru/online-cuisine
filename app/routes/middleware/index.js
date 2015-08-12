@@ -70,13 +70,6 @@ module.exports = {
         }
         return next();
     },
-    "seed": function (req, res) {
-        if(process.env.SEED && process.env.SEED == 1) {
-            var devSeeder = require('./../../../scripts/populate')();
-            devSeeder(10);
-        }
-        res.redirect('/');
-    },
     "templateHelpers": function (req, res, next) {
         res.locals.moment = moment;
         res.locals._ = _;

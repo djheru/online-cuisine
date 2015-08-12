@@ -1,0 +1,81 @@
+{
+  "_id": "55cae0c168ca49672514d5a2",
+  "category": "Entrees",
+  "title": "Filet Mignon",
+  "shortDesc": "A classic - Tenderloin filet with your choice of toppings.",
+  "longDesc": "A tenderloin filet from certified organic grass-fed cows. Cooked to perfection in a water bath set to 130 degrees, briefly seared under an 800 degree broiler and topped with your choice of flavor enhancers",
+  "basePrice": 49.99,
+  "imageUri": "/img/menu/1.png",
+  "isFeatured": true,
+  "itemFor": null,
+  "selectedItemOptions": [],
+  "itemOptions": [
+    {
+      "_id": "55cae0c168ca49672514d59f",
+      "price": -4.99,
+      "shortDesc": "6oz Petite Filet",
+      "groupName": "Filet Sizes",
+      "name": "6oz Petite Filet"
+    },
+    {
+      "_id": "55cae0c168ca49672514d5a0",
+      "price": 0,
+      "shortDesc": "8oz Filet",
+      "groupName": "Filet Sizes",
+      "name": "8oz Filet"
+    },
+    {
+      "_id": "55cae0c168ca49672514d5a1",
+      "price": 4.99,
+      "shortDesc": "10oz Hearty Filet",
+      "groupName": "Filet Sizes",
+      "name": "10oz Hearty Filet"
+    }
+  ],
+  "selectedItemExtras": [],
+  "itemExtras": [
+    {
+      "_id": "55cae0c168ca49672514d599",
+      "price": 4.99,
+      "shortDesc": "Shrimp sauteed in a garlic/butter/white wine sauce",
+      "groupName": "Steak Toppings",
+      "name": "Shrimp Scampi"
+    },
+    {
+      "_id": "55cae0c168ca49672514d59a",
+      "price": 2.99,
+      "shortDesc": "Rich blue cheese and Panko crumbles, broiled to a golden crust",
+      "groupName": "Steak Toppings",
+      "name": "Blue Cheese Crumbles"
+    },
+    {
+      "_id": "55cae0c168ca49672514d59b",
+      "price": 3.99,
+      "shortDesc": "Our special 7-mushroom blend, sauteed in browned butter and sage",
+      "groupName": "Steak Toppings",
+      "name": "Mushroom Medley"
+    },
+    {
+      "_id": "55cae0c168ca49672514d59c",
+      "price": 0,
+      "shortDesc": "Blue cheese grits, cooked southern style. Great with the Blue Cheese Crumbles!",
+      "groupName": "Sides",
+      "name": "Blue Cheese Grits"
+    },
+    {
+      "_id": "55cae0c168ca49672514d59d",
+      "price": 0,
+      "shortDesc": "Glorious salty, crispy skin, served with sour cream and chives",
+      "groupName": "Sides",
+      "name": "Baked Potato"
+    },
+    {
+      "_id": "55cae0c168ca49672514d59e",
+      "price": 0,
+      "shortDesc": "Onions, peppers, broccoli, cauliflower, carrots and garlic roasted in olive oil",
+      "groupName": "Sides",
+      "name": "Roasted Vegetable Blend"
+    }
+  ],
+  "__v": 0
+}

@@ -128,13 +128,11 @@ var routes = require('./app/routes')(express, passport);
 app.use('/', routes.public);
 app.use('/', routes.passport);
 app.use('/', routes.protected);
+app.use('/', routes.menu);
 
 //catch errors ============================================
 app.use(middleware.logErrors);
 app.use(middleware.errorHandler);
-
-//seeding =================================================
-app.use(middleware.seed);
 
 // start the app ==========================================
 console.log('Starting app on port ' + port);

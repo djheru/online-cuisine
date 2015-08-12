@@ -13,6 +13,7 @@
     "seed": "NODE_ENV='development' SEED=1 node server.js"
   },
   "dependencies": {
+    "async": "^1.4.2",
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.0.2",
     "connect-flash": "~0.1.1",

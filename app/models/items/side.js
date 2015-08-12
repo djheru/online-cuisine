@@ -8,6 +8,7 @@ module.exports = function () {
     var sideSchema = Schema({
         name:				{ type: String },
         groupName:			{ type: String },
+        shortDesc:          { type: String },
         price:				{ type: Number }
     });
 

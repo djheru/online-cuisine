@@ -13,6 +13,11 @@ module.exports = function (express, passport, config) {
 
             "favoriteId": function (req, res, next, favoriteId) {
                 return next();
+            },
+
+            "seedCount": function (req, res, next, seedCount) {
+                req.seedCount = seedCount;
+                return next();
             }
         },
 
@@ -93,6 +98,22 @@ module.exports = function (express, passport, config) {
         "orders": {
             "get": function (req, res) {
                 res.render('order-history.ejs');
+            }
+        },
+
+        //Seeding
+        "seed": {
+            "get": function (req, res) {
+                console.log('seed route - ' + __dirname);
+                if(process.env.SEED && process.env.SEED == 1) {
+                    console.log(req.seedCount);
+                    var seedCount = req.seedCount || 11;
+                    appGlobals.logger.info('seeding');
+                    var devSeeder = require('./../../../scripts/populate')();
+                    devSeeder(seedCount, function () {
+                        res.redirect('/');
+                    });
+                }
             }
         }
     }

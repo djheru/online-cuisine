@@ -6,6 +6,7 @@ module.exports = function (express, passport, models, mailer, config) {
 
         "public": require('./public')(express, passport, models, mailer, config),
         "passport": require('./passport')(express, passport, config),
-        "protected": require('./protected')(express, passport, config)
+        "protected": require('./protected')(express, passport, config),
+        "menu": require('./menu')(express, config)
     }
 }
