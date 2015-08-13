@@ -15,7 +15,6 @@ module.exports = function (express, config) {
         //Seeding items
         "seed": {
             "get": function (req, res) {
-                console.log('seed');
                 if(process.env.SEED && process.env.SEED == 1) {
                     console.log(req.seedCount);
                     var seedCount = req.seedCount || 11;
@@ -24,6 +23,8 @@ module.exports = function (express, config) {
                     devSeeder(seedCount, function () {
                         res.redirect('/');
                     });
+                } else {
+                    res.redirect('/');
                 }
             }
         }

@@ -7,7 +7,7 @@ var models = require('../models');
 
 module.exports = function (express) {
 
-    var handlers = require('./handlers/menu')(express, config);
+    var handlers = require('./handlers/menu')(express, models);
 
     //set us up the router
     var routeExport = express.Router();

@@ -6,6 +6,10 @@ span.fa-navicon {
     color: #ffffff;
 }
 
+body.home {
+    margin-top: 40px;
+}
+
 nav.navbar  {
     margin-bottom: 0;
     text-transform: uppercase;
@@ -13,6 +17,10 @@ nav.navbar  {
 
 .navbar > .container-fluid > .navbar-header {
     margin-right: 20px;
+}
+
+body.home > .alert {
+    margin-bottom: 0px;
 }
 
 .well, .jumbotron {
@@ -162,7 +170,7 @@ input.multiselect-search {
     text-align: center;
 }
 
-.featured > div > div {
+.featured > div > div, .featured > a > div {
     padding: 10px;
     border: 1px solid transparent;
     border-radius: 4px;
@@ -172,12 +180,18 @@ input.multiselect-search {
     margin-bottom: 20px;
 }
 
-.featured > div:hover > div {
+.featured > div:hover > div,
+.featured > a:hover > div {
     margin-top: -10px;
     border: 1px solid rgb(180, 180, 180);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
     background: rgba(205, 205, 205, 0.3);
     transition: 0.5s;
+}
+
+.featured > a:hover, .featured > a {
+    color: #000000;
+    text-decoration: none;
 }
 
 .featured p {

@@ -10,83 +10,19 @@
 </head>
 
 
-<body>
+<body class="home">
 
     <!-- navbar header -->
     <% include include/nav %>
 
-    <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="hero-carousel">
+    <!-- flash messages -->
+    <% include include/flash %>
 
-
-        <ol class="carousel-indicators">
-            <li data-target="#hero-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#hero-carousel" data-slide-to="1"></li>
-        </ol>
-
-        <div class="carousel-inner">
-
-            <div class="item slides active">
-                <div class="overlay"></div>
-                <div class="slide-1"></div>
-                <div class="hero">
-                    <hgroup>
-                        <h1>
-                            Online Cuisine
-                        </h1>
-                        <h3>Register or Log In With:</h3>
-                        <div class="row">
-                            <div class="center-block">
-                                <a href="/login" class="btn btn-social btn-primary"><span class="fa fa-user"></span> Local Login</a>
-                                <a href="/signup" class="btn btn-social btn-primary"><span class="fa fa-user"></span> Local Signup</a>
-                            </div>
-                        </div>
-                        <div class="row padding-top-1">
-                            <div class="center-block">
-                                <a href="/auth/facebook" class="btn btn-social btn-facebook"><span class="fa fa-facebook"></span> Facebook</a>
-                                <a href="/auth/twitter" class="btn btn-social btn-twitter"><span class="fa fa-twitter"></span> Twitter</a>
-                                <a href="/auth/google" class="btn btn-social btn-google-plus"><span class="fa fa-google-plus"></span> Google</a>
-                            </div>
-                        </div>
-                    </hgroup>
-                </div>
-            </div>
-
-            <div class="item slides">
-                <div class="overlay"></div>
-                <div class="slide-2"></div>
-                <div class="hero">
-                    <div>
-                        <hgroup>
-                            <h1>Online Cuisine</h1>
-                            <h3>Register or Log In With:</h3>
-                        </hgroup>
-                        <div class="row">
-                            <div class="center-block">
-                                <a href="/login" class="btn btn-social btn-primary"><span class="fa fa-user"></span> Local Login</a>
-                                <a href="/signup" class="btn btn-social btn-primary"><span class="fa fa-user"></span> Local Signup</a>
-                            </div>
-                        </div>
-                        <div class="row padding-top-1">
-                            <div class="center-block">
-                                <a href="/auth/facebook" class="btn btn-social btn-facebook"><span class="fa fa-facebook"></span> Facebook</a>
-                                <a href="/auth/twitter" class="btn btn-social btn-twitter"><span class="fa fa-twitter"></span> Twitter</a>
-                                <a href="/auth/google" class="btn btn-social btn-google-plus"><span class="fa fa-google-plus"></span> Google</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+    <!-- carousel -->
+    <% include include/carousel %>
     <div>
 
         <div class="container">
-
-            <!-- flash messages -->
-            <% include include/flash %>
 
             <div class="row margin-top-2">
                 <h2>Featured Items</h2>
@@ -94,37 +30,37 @@
 
             <div class="row featured">
 
-                <div class="col-md-3">
+                <a class="col-md-3" href="/menu/55cb686bd5d4fd8b2a1808fb">
                     <div>
                         <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
                         <h2>Filet Mignon</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="col-md-3">
+                <a class="col-md-3" href="/menu/55cb686bd5d4fd8b2a1808fb">
                     <div>
                         <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
                         <h2>Filet Mignon</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="col-md-3">
+                <a class="col-md-3" href="/menu/55cb686bd5d4fd8b2a1808fb">
                     <div>
                         <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
                         <h2>Filet Mignon</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="col-md-3">
+                <a class="col-md-3" href="/menu/55cb686bd5d4fd8b2a1808fb">
                     <div>
                         <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
                         <h2>Filet Mignon</h2>
                         <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
                     </div>
-                </div>
+                </a>
 
             </div>
 

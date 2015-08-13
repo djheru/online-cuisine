@@ -125,10 +125,12 @@ app.use(middleware.csrfChecker);
 // routes =================================================
 //get the routes object as an array of routes
 var routes = require('./app/routes')(express, passport);
+
 app.use('/', routes.public);
 app.use('/', routes.passport);
-app.use('/', routes.protected);
 app.use('/', routes.menu);
+
+app.use('/', routes.protected);
 app.use('/', routes.admin);
 
 //catch errors ============================================

@@ -11,20 +11,90 @@
 <!-- navbar header -->
 <% include include/nav %>
 
-<div id="login-overlay" class="modal-dialog">
+<div id="login-overlay" class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
             <a href="/" class="close">
-                <span class="fa fa-times text-primary" aria-hidden="true"></span><span class="sr-only">Close</span>
+                <span class="fa fa-times text-primary" aria-hidden="true"></span>
+                <span class="sr-only">Close</span>
             </a>
-            <h4 class="modal-title"><span class="fa fa-cutlery"></span> Lamb Chops</h4>
+            <h4 class="modal-title"><span class="fa fa-cutlery"></span> <%= item.category %></h4>
         </div>
         <div class="modal-body">
-            <div class="row">
 
-                <div class="col-xs-12">
-                    <div class="well">
+            <div class="container-fluid">
+                <div class="row well">
+                    <div class="col-xs-12">
 
+                        <div class="col-md-4">
+                            <img src="/img/menu/1.jpg"
+                                 class="img-circle img-thumbnail img-responsive center-block" />
+                        </div>
+                        <div class="col-md-8">
+                            <h3><%= item.title %></h3>
+                            <h5>Price: <span id="itemPrice">$9.99</span> </h5>
+                            <hr />
+                            <h4>Description</h4>
+                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.  Fusce dapibus, tellus ac cursus commodo,</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <form class="form-horizontal">
+                                <hr />
+                                <div class="col-xs-12 form-group">
+                                    <div class="col-sm-6">
+                                        <% locals._.each(locals._.groupBy(item.itemOptions, 'groupName'), function (val, key, list) { %>
+                                        <h5>Select: <strong><%= key %></strong></h5>
+                                        <select id="<%= key %>" class="form-control">
+                                            <% locals._.each(val, function (option) { %>
+                                            <option id="<%= option.id %>">
+                                                <%= option.name %> | $<%= option.price %>
+                                            </option>
+                                            <% }) %>
+                                        </select>
+                                        <br />
+                                        <% }) %>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <h5>Choose Extras</h5>
+                                        <select multiple id="extras" class="form-control">
+                                            <% locals._.each(item.itemExtras, function (extra) { %>
+                                            <option id="<%= extra.id %>"><%= extra.name %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-12">
+                                    <hr/>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="itemFor" class="col-md-10 text-right pull right">
+                                        <h5>Order Item For:</h5>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <select id="itemFor" name="itemFor" class="form-control text-right">
+                                            <option>Me</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="col-md-4 pull-right text-left">
+                                        <button type="submit" class="btn btn-success btn-lg btn-block">
+                                            <span class="fa fa-plus-circle"></span>
+                                            Add to Order
+                                        </button>
+                                    </div>
+                                    <div class="col-md-8 text-right pull-left">
+                                        <h5>
+                                            <a class="btn btn-link" href="/menu">
+                                                <span class="fa fa-backward"></span>
+                                                Return to Menu
+                                            </a>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
