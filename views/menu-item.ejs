@@ -27,26 +27,31 @@
                     <div class="col-xs-12">
 
                         <div class="col-md-4">
-                            <img src="/img/menu/1.jpg"
+                            <img src="<%= item.imageUri %>"
                                  class="img-circle img-thumbnail img-responsive center-block" />
                         </div>
                         <div class="col-md-8">
                             <h3><%= item.title %></h3>
-                            <h5>Price: <span id="itemPrice">$9.99</span> </h5>
+                            <h5>Price: $<span id="itemPrice"><%= item.totalPrice %></span> </h5>
                             <hr />
                             <h4>Description</h4>
-                            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.  Fusce dapibus, tellus ac cursus commodo,</p>
+                            <p class="hidden-xs">
+                               <%= item.longDesc %>
+                            </p>
+                            <p class="visible-xs">
+                                <%= item.shortDesc %>
+                            </p>
                         </div>
                         <div class="col-xs-12">
                             <form class="form-horizontal">
                                 <hr />
                                 <div class="col-xs-12 form-group">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 item-options-container">
                                         <% locals._.each(locals._.groupBy(item.itemOptions, 'groupName'), function (val, key, list) { %>
                                         <h5>Select: <strong><%= key %></strong></h5>
-                                        <select id="<%= key %>" class="form-control">
+                                        <select id="<%= key %>" class="form-control item-option">
                                             <% locals._.each(val, function (option) { %>
-                                            <option id="<%= option.id %>">
+                                            <option id="<%= option.id %>" value="<%= option.id %>" data-price="<%= option.price %>">
                                                 <%= option.name %> | $<%= option.price %>
                                             </option>
                                             <% }) %>
@@ -54,12 +59,11 @@
                                         <br />
                                         <% }) %>
                                     </div>
-                                    <div class="col-sm-6">
-
+                                    <div class="col-sm-6 item-extras-container">
                                         <h5>Choose Extras</h5>
-                                        <select multiple id="extras" class="form-control">
+                                        <select multiple id="extras" class="form-control item-extra">
                                             <% locals._.each(item.itemExtras, function (extra) { %>
-                                            <option id="<%= extra.id %>"><%= extra.name %></option>
+                                            <option id="<%= extra.id %>"><%= extra.name %> | $<%= extra.price %></option>
                                             <% }) %>
                                         </select>
                                     </div>
@@ -71,7 +75,7 @@
                                     <label for="itemFor" class="col-md-10 text-right pull right">
                                         <h5>Order Item For:</h5>
                                     </label>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 item-for-container">
                                         <select id="itemFor" name="itemFor" class="form-control text-right">
                                             <option>Me</option>
                                         </select>
@@ -106,6 +110,132 @@
 
 <!-- javascript -->
 <% include include/scripts %>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        var itemStore = {
+            "id": "<%= item.id %>",
+            "basePrice": <%= item.basePrice %>,
+            "itemExtras": [
+                <% locals._.each(item.itemExtras, function (side) { %>
+                {
+                    "id": "<%= side.id %>",
+                    "name": "<%= side.name %>",
+                    "groupName": "<%= side.groupName %>",
+                    "price": <%= side.price %>
+                },
+                <% }) %>
+            ],
+            "selectedItemExtras": [
+                <% locals._.each(item.selectedItemExtras, function (side) { %>
+                {
+                    "id": "<%= side.id %>",
+                    "name": "<%= side.name %>",
+                    "groupName": "<%= side.groupName %>",
+                    "price": <%= side.price %>
+                },
+                <% }) %>
+            ],
+            "itemOptions": [
+                <% locals._.each(item.itemOptions, function (side) { %>
+                {
+                    "id": "<%= side.id %>",
+                    "name": "<%= side.name %>",
+                    "groupName": "<%= side.groupName %>",
+                    "price": <%= side.price %>
+                },
+                <% }) %>
+            ],
+            "selectedItemOptions": [
+                <% locals._.each(item.selectedItemOptions, function (side) { %>
+                {
+                    "id": "<%= side.id %>",
+                    "name": "<%= side.name %>",
+                    "groupName": "<%= side.groupName %>",
+                    "price": <%= side.price %>
+                },
+                <% }) %>
+            ]
+        }
+        , EXTRA_PRICE_UPDATED = "item.extra.price.updated"
+        , OPTION_PRICE_UPDATED = "item.option.price.updated"
+        , ITEM_PRICE_UPDATED = "item.total.price.updated"
+        , init = function () {
+                    store.clear();
+                    store.set('item', itemStore);
+                };
+
+
+
+        init();
+        $(document)
+                .on(OPTION_PRICE_UPDATED, function (e, updatedElementId, isSelected) {
+                    var option, options, item;
+                    if (store.enabled) {
+                        item = store.get('item') || itemStore;
+                        //first get the selected item
+                        option = _.findWhere(item.itemOptions, {id: updatedElementId});
+                        //remove any selectedItemOptions with the same group name
+                        options = _.reject(item.selectedItemOptions, function (o) {
+                            return o.groupName == option.groupName;
+                        });
+                        //add the selected one
+                        options.push(option);
+                        item.selectedItemOptions = options;
+                        store.set('item', item);
+                        $(document).trigger(ITEM_PRICE_UPDATED, [item.selectedItemOptions, item.selectedItemExtras]);
+                    }
+                })
+                .on(EXTRA_PRICE_UPDATED, function (e, updatedElementId, isSelected) {
+                    var extra, extras, item;
+                    if (store.enabled) {
+                        item = store.get('item') || itemStore;
+                        if (isSelected) {//get selected extra and put it in selectedExtras
+                            extra = _.findWhere(item.itemExtras, {id: updatedElementId});
+                            if(extra){
+                                item.selectedItemExtras.push(extra);
+                            }
+                        } else {//remove selected extra from selectedExtras
+                            extras = _.reject(item.selectedItemExtras, function (extra) {
+                                return extra.id == updatedElementId;
+                            });
+                            item.selectedItemExtras = extras;
+                        }
+                        store.set('item', item);
+                        $(document).trigger(ITEM_PRICE_UPDATED, [item.selectedItemOptions, item.selectedItemExtras])
+                    }
+                })
+                .on(ITEM_PRICE_UPDATED, function (e, options, extras){
+                    var item = store.get('item') || itemStore
+                        , sides = options.concat(extras)
+                        , totalPrice = parseFloat(_.reduce(sides, function (memo, side) {
+                            return memo + side.price;
+                        }, item.basePrice));
+                    $('#itemPrice').text(totalPrice.toFixed(2));
+                });
+
+        $('.item-option').multiselect({
+            buttonClass: 'btn btn-block',
+            onChange: function (option, checked) {
+                $(document).trigger(OPTION_PRICE_UPDATED, [ $(option).attr('id'), checked ]);
+            }
+        });
+        $('.item-extra').multiselect({
+            checkboxName: 'itemExtras[]',
+            buttonClass: 'btn btn-block',
+            numberDisplayed: 1,
+            onChange: function (option, checked) {
+                $(document).trigger(EXTRA_PRICE_UPDATED, [ $(option).attr('id'), checked ]);
+            }
+        });
+        $('#itemFor').multiselect({
+            buttonClass: 'btn btn-block'
+        });
+
+    });
+</script>
 
 </body>
 </html>

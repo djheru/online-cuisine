@@ -104,9 +104,6 @@ body.home > .alert {
     max-width: 1200px;
 }
 
-.multiselect-container {
-    font-size: 80%;
-}
 
 .modal-dialog {
     margin-top: 100px;
@@ -133,24 +130,19 @@ section#items .panel-body {
 .isotope-item .panel-footer {
     padding: 4px;
 }
-input.multiselect-search {
-    font-size: .9em;
-}
 
-.multiselect-container label.radio {
-    padding-left: 6px;
+.item-extras-container > .btn-group,
+.item-options-container > .btn-group,
+.item-for-container > .btn-group {
+    width: 100%;
 }
-
-.multiselect-container li{
-    padding-left: 4px;
-}
-
 
 .isotope-item .panel-account {
     border-radius: 6px;
     border: 1px solid #cfcfd2;
     margin-bottom: 30px;
 }
+
 .panel-account > .panel-heading {
     background: url('../img/first_aid_kit.png');
 }

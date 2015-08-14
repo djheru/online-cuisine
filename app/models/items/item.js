@@ -1,7 +1,8 @@
 // app/item/item.js
 var mongoose =  require('mongoose')
     , Schema = mongoose.Schema
-    , SideSchema = require('./side');
+    , SideSchema = require('./side')
+    , _ = require('underscore');
 
 module.exports = function () {
 
@@ -19,6 +20,16 @@ module.exports = function () {
         itemOptions:		[ SideSchema ],
         selectedItemOptions:[ SideSchema ]
     });
+
+    itemSchema
+        .virtual('totalPrice')
+        .get(function () {
+            console.log(this);
+            var sides = this.selectedItemExtras.concat(this.selectedItemOptions);
+            return parseFloat(_.reduce(sides, function (memo, price) {
+                return memo + price;
+            }, this.basePrice).toFixed(2));
+        });
 
     return itemSchema;
 }();
