@@ -9,7 +9,8 @@ module.exports = function () {
         name:				{ type: String },
         groupName:			{ type: String },
         shortDesc:          { type: String },
-        price:				{ type: Number }
+        price:				{ type: Number },
+        isDefault:          { type: Boolean }
     });
 
     return sideSchema;

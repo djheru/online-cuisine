@@ -33,19 +33,22 @@ module.exports = function() {
                     "name": "Shrimp Scampi",
                     "groupName": "Steak Toppings",
                     "shortDesc": "Shrimp sauteed in a garlic/butter/white wine sauce",
-                    "price": 4.99
+                    "price": 4.99,
+                    "isDefault": false
                 },
                 {
                     "name": "Blue Cheese Crumbles",
                     "groupName": "Steak Toppings",
                     "shortDesc": "Rich blue cheese and Panko crumbles, broiled to a golden crust",
-                    "price": 2.99
+                    "price": 2.99,
+                    "isDefault": false
                 },
                 {
                     "name": "Mushroom Medley",
                     "groupName": "Steak Toppings",
                     "shortDesc": "Our special 7-mushroom blend, sauteed in browned butter and sage",
-                    "price": 3.99
+                    "price": 3.99,
+                    "isDefault": false
                 }
             ],
             "itemOptions": [
@@ -53,37 +56,43 @@ module.exports = function() {
                     "name": "6oz Petite Filet",
                     "groupName": "Filet Sizes",
                     "shortDesc": "6oz Petite Filet",
-                    "price": -4.99
+                    "price": -4.99,
+                    "isDefault": false
                 },
                 {
                     "name": "8oz Filet",
                     "groupName": "Filet Sizes",
                     "shortDesc": "8oz Filet",
-                    "price": 0
+                    "price": 0,
+                    "isDefault": true
                 },
                 {
                     "name": "10oz Hearty Filet",
                     "groupName": "Filet Sizes",
                     "shortDesc": "10oz Hearty Filet",
-                    "price": 4.99
+                    "price": 4.99,
+                    "isDefault": false
                 },
                 {
                     "name": "Blue Cheese Grits",
                     "groupName": "Sides",
                     "shortDesc": "Blue cheese grits, cooked southern style. Great with the Blue Cheese Crumbles!",
-                    "price": 0
+                    "price": 0,
+                    "isDefault": false
                 },
                 {
                     "name": "Baked Potato",
                     "groupName": "Sides",
                     "shortDesc": "Glorious salty, crispy skin, served with sour cream and chives",
-                    "price": 0
+                    "price": 0,
+                    "isDefault": true
                 },
                 {
                     "name": "Roasted Vegetable Blend",
                     "groupName": "Sides",
                     "shortDesc": "Onions, peppers, broccoli, cauliflower, carrots and garlic roasted in olive oil",
-                    "price": 0
+                    "price": 0,
+                    "isDefault": false
                 }
             ]
         };

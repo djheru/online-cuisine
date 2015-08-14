@@ -51,7 +51,10 @@
                                         <h5>Select: <strong><%= key %></strong></h5>
                                         <select id="<%= key %>" class="form-control item-option">
                                             <% locals._.each(val, function (option) { %>
-                                            <option id="<%= option.id %>" value="<%= option.id %>" data-price="<%= option.price %>">
+                                            <option
+                                                    <%= (option.isDefault) ? ' selected ' : '' %>
+                                                    id="<%= option.id %>"
+                                                    value="<%= option.id %>">
                                                 <%= option.name %> | $<%= option.price %>
                                             </option>
                                             <% }) %>
@@ -63,7 +66,10 @@
                                         <h5>Choose Extras</h5>
                                         <select multiple id="extras" class="form-control item-extra">
                                             <% locals._.each(item.itemExtras, function (extra) { %>
-                                            <option id="<%= extra.id %>"><%= extra.name %> | $<%= extra.price %></option>
+                                            <option
+                                                    id="<%= extra.id %>"
+                                                    <%= (extra.isDefault) ? ' selected ' : '' %>>
+                                                <%= extra.name %> | $<%= extra.price %></option>
                                             <% }) %>
                                         </select>
                                     </div>
@@ -118,58 +124,28 @@
         var itemStore = {
             "id": "<%= item.id %>",
             "basePrice": <%= item.basePrice %>,
-            "itemExtras": [
-                <% locals._.each(item.itemExtras, function (side) { %>
-                {
-                    "id": "<%= side.id %>",
-                    "name": "<%= side.name %>",
-                    "groupName": "<%= side.groupName %>",
-                    "price": <%= side.price %>
-                },
-                <% }) %>
-            ],
-            "selectedItemExtras": [
-                <% locals._.each(item.selectedItemExtras, function (side) { %>
-                {
-                    "id": "<%= side.id %>",
-                    "name": "<%= side.name %>",
-                    "groupName": "<%= side.groupName %>",
-                    "price": <%= side.price %>
-                },
-                <% }) %>
-            ],
-            "itemOptions": [
-                <% locals._.each(item.itemOptions, function (side) { %>
-                {
-                    "id": "<%= side.id %>",
-                    "name": "<%= side.name %>",
-                    "groupName": "<%= side.groupName %>",
-                    "price": <%= side.price %>
-                },
-                <% }) %>
-            ],
-            "selectedItemOptions": [
-                <% locals._.each(item.selectedItemOptions, function (side) { %>
-                {
-                    "id": "<%= side.id %>",
-                    "name": "<%= side.name %>",
-                    "groupName": "<%= side.groupName %>",
-                    "price": <%= side.price %>
-                },
-                <% }) %>
-            ]
+            <% locals._.each(['itemExtras', 'selectedItemExtras', 'itemOptions', 'selectedItemOptions'], function (collectionName) { %>
+                "<%= collectionName %>": [
+                    <% locals._.each(item[collectionName], function (side) { %>
+                    {
+                        "id": "<%= side.id %>",
+                        "name": "<%= side.name %>",
+                        "groupName": "<%= side.groupName %>",
+                        "price": <%= side.price %>
+                    },
+                    <% }) %>
+                ],
+            <% }) %>
         }
         , EXTRA_PRICE_UPDATED = "item.extra.price.updated"
         , OPTION_PRICE_UPDATED = "item.option.price.updated"
         , ITEM_PRICE_UPDATED = "item.total.price.updated"
-        , init = function () {
+        , initialize = function () {
                     store.clear();
                     store.set('item', itemStore);
                 };
 
-
-
-        init();
+        initialize();
         $(document)
                 .on(OPTION_PRICE_UPDATED, function (e, updatedElementId, isSelected) {
                     var option, options, item;
