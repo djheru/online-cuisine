@@ -7,13 +7,17 @@ var mongoose =  require('mongoose')
 module.exports = function () {
 
     var itemSchema = Schema({
-        category:			{ type: String },
+        category:			{
+            slug: { type: String },
+            title: { type: String }
+        },
         title:				{ type: String },
         shortDesc:			{ type: String },
         longDesc:			{ type: String },
         basePrice:			{ type: Number },
         imageUri:			{ type: String },
         isFeatured:			{ type: Boolean },
+        isActive:           { type: Boolean },
         itemFor: 			{ type: Schema.ObjectId, ref: 'Companion' },
         itemExtras:			[ SideSchema ],
         selectedItemExtras: [ SideSchema ],

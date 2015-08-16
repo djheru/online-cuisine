@@ -11,17 +11,26 @@ var models = require('../app/models')
 module.exports = function() {
 
     var seedGenerator = function(){
+        var categories = [
+            { "title": "Steak Entrees", "slug": "steak-entrees" },
+            { "title": "Pasta Entrees", "slug": "pasta-entrees" },
+            { "title": "Burgers", "slug": "burgers" },
+            { "title": "Seafood Entrees", "slug": "seafood-entrees" },
+            { "title": "Appetizers", "slug": "appetizers" }
+        ];
+        category = categories[Math.floor(Math.random() * categories.length)];
+        console.log(category);
         return {
             "item": {
-                "category": "Entrees",
+                "category": category,
                 "title": "Filet Mignon",
                 "shortDesc": "A classic - Tenderloin filet with your choice of toppings.",
                 "longDesc": "A tenderloin filet from certified organic grass-fed cows. " +
                     "Cooked to perfection in a water bath set to 130 degrees, briefly seared " +
                     "under an 800 degree broiler and topped with your choice of flavor enhancers",
                 "basePrice": 49.99,
-                "imageUri": "/img/menu/1.jpg",
                 "isFeatured": true,
+                "isActive": true,
                 "itemFor": null,
                 "itemExtras": [],
                 "selectedItemExtras": [],
@@ -100,7 +109,7 @@ module.exports = function() {
 
     var seeder = function(num, cb) {
 
-        var seed = seedGenerator(),
+        var seed,
             itemExtras = [],
             itemOptions = [],
             item = null,
@@ -110,12 +119,17 @@ module.exports = function() {
         Item.remove({}, function (err) {
 
             for( var i=0; i<num; i++) {
+                seed = seedGenerator();
                 itemExtras = _.map(seed.itemExtras, function (extra) {
                     return new Side(extra);
                 });
                 itemOptions = _.map(seed.itemOptions, function (option) {
                     return new Side(option);
                 });
+
+                seed.item.imageUri = ((i % 3) == 1) ? '/img/menu/default.png' : "/img/menu/1.jpg";
+                console.log(seed.item.imageUri);
+
                 item = new Item(seed.item);
                 item.itemExtras = itemExtras;
                 item.itemOptions = itemOptions;

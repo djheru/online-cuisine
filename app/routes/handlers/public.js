@@ -14,8 +14,20 @@ module.exports = function (express, passport, models, mailer, config) {
 
         //Home page
         "home": {
-            "get": function (req, res) {
-                res.render('index.ejs', {});
+            "get": function (req, res, next) {
+                var Item = models.Item.Item;
+                Item
+                    .find({ isFeatured: true, isActive: true })
+                    .limit(4)
+                    .sort({basePrice: 1})
+                    .exec(function (err, items) {
+                        if (err) {
+                            return next(err);
+                        }
+                        res.render('index.ejs', {
+                            items: items
+                        });
+                    });
             }
         },
 

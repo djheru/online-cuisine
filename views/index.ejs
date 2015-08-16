@@ -30,37 +30,16 @@
 
             <div class="row featured">
 
-                <a class="col-md-3" href="/menu/55ce118d3a717b681a40a196">
-                    <div>
-                        <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
-                        <h2>Filet Mignon</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
-                    </div>
-                </a>
-
-                <a class="col-md-3" href="/menu/55ce118d3a717b681a40a196">
-                    <div>
-                        <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
-                        <h2>Filet Mignon</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
-                    </div>
-                </a>
-
-                <a class="col-md-3" href="/menu/55ce118d3a717b681a40a196">
-                    <div>
-                        <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
-                        <h2>Filet Mignon</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
-                    </div>
-                </a>
-
-                <a class="col-md-3" href="/menu/55ce118d3a717b681a40a196">
-                    <div>
-                        <img src="img/menu/1.jpg" class="img-circle img-thumbnail">
-                        <h2>Filet Mignon</h2>
-                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.</p>
-                    </div>
-                </a>
+                <% locals._.each(items, function (item){ %>
+                    <a class="col-md-3" href="/menu/<%= item.id %>">
+                        <div class="featured-thumbnail">
+                            <img src="<%= item.imageUri %>" class="img-circle img-thumbnail">
+                            <h2><%= item.title %> | $<%= item.basePrice.toFixed(2) %></h2>
+                            <hr/>
+                            <p><%= item.shortDesc %></p>
+                        </div>
+                    </a>
+                <%}) %>
 
             </div>
 

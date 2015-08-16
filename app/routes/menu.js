@@ -15,6 +15,10 @@ module.exports = function (express) {
     //validate itemId param and store in the session
     routeExport.param('itemId', handlers.params.itemId);
 
+    //Main Menu
+    routeExport.route(config.menu.menu)
+        .get(handlers.menu.get);
+
     //Menu Item
     routeExport.route(config.menu.menuItem)
         .get(handlers.menuItem.get);
