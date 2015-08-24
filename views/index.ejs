@@ -30,16 +30,8 @@
 
             <div class="row featured">
 
-                <% locals._.each(items, function (item){ %>
-                    <a class="col-md-3" href="/menu/<%= item.id %>">
-                        <div class="featured-thumbnail">
-                            <img src="<%= item.imageUri %>" class="img-circle img-thumbnail">
-                            <h2><%= item.title %> | $<%= item.basePrice.toFixed(2) %></h2>
-                            <hr/>
-                            <p><%= item.shortDesc %></p>
-                        </div>
-                    </a>
-                <%}) %>
+                <!-- Items grid -->
+                <% include include/items-grid.ejs %>
 
             </div>
 

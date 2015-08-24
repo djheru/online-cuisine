@@ -31,6 +31,13 @@ module.exports = function (express, passport, models, mailer, config) {
             }
         },
 
+        //Contact page
+        "contact": {
+            "get": function (req, res, next) {
+                res.render('contact.ejs', {});
+            }
+        },
+
         //Sign up for a local account
         "signup": {
             "get": function (req, res) {

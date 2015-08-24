@@ -4,6 +4,7 @@
 
 var config = appGlobals.config.get('app').routes;
 var models = require('../models');
+var middleware = require('./middleware/index');
 
 module.exports = function (express) {
 
@@ -17,6 +18,8 @@ module.exports = function (express) {
 
     //Main Menu
     routeExport.route(config.menu.menu)
+        .get(middleware.menu.items)
+        .get(middleware.menu.categories)
         .get(handlers.menu.get);
 
     //Menu Item
@@ -24,4 +27,4 @@ module.exports = function (express) {
         .get(handlers.menuItem.get);
 
     return routeExport;
-}
+};

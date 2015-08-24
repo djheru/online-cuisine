@@ -29,28 +29,10 @@ module.exports = function (express, models) {
         //Main menu
         "menu": {
             "get": function (req, res, next) {
-                var Item = models.Item.Item;
-                Item
-                    .find({isActive: true})
-                    .exec(function (err, items) {
-                        if (err) {
-                            return next(err);
-                        }
-                        //sort categories
-                        var categories = _.pluck(items, 'category');
-                        console.log(categories);
-                        var uniqueCategories = _.uniq(categories, false, function (c) {
-                            return c.slug;
-                        });
-                        console.log('uniq', uniqueCategories);
-                        var sortedCategories = _.sortBy(uniqueCategories, 'slug');
-                        console.log(sortedCategories);
-
-                        res.render('menu.ejs', {
-                            items: items,
-                            categories: sortedCategories
-                        });
-                    });
+                res.render('menu.ejs', {
+                    items: req.items,
+                    categories: req.categories
+                });
             }
         },
 
@@ -58,7 +40,8 @@ module.exports = function (express, models) {
         "menuItem": {
             "get": function (req, res, next) {
                 res.render('menu-item.ejs', {
-                    item: req.item
+                    item: req.item,
+                    csrfToken: req.csrfToken()
                 });
             }
         },

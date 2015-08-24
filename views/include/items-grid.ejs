@@ -1,0 +1,12 @@
+<% locals._.each(items, function (item) { %>
+<a class="col-xs-12 col-sm-4 col-md-3 col-lg-3 margin-top-1 element-item <%= item.category.slug %>" href="/menu/<%= item.id %>">
+    <div class="featured-thumbnail">
+        <h6><%= item.category.title %></h6>
+        <img src="<%= item.imageUri %>" class="img-circle img-thumbnail">
+        <h2><%= item.title %> | $<%= parseFloat(item.totalPrice).toFixed(2) %></h2>
+        <hr/>
+        <p class="hidden-xs"><%= item.shortDesc %></p>
+        <p class="visible-xs"><%= item.longDesc %></p>
+    </div>
+</a>
+<% }) %>

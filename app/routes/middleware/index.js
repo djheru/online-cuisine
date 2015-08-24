@@ -1,7 +1,9 @@
 // Middleware to play with req and res before rendering the page
 var _ = require('underscore'),
     moment = require('moment'),
-    models = require('../../models');
+    models = require('../../models'),
+    dealMiddleware = require('./deal'),
+    menuMiddleware = require('./menu');
 module.exports = {
 
     "isLoggedIn": function (req, res, next) {
@@ -75,4 +77,6 @@ module.exports = {
         res.locals._ = _;
         return next();
     },
+    "menu": menuMiddleware,
+    "deal": dealMiddleware
 }

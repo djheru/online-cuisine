@@ -20,7 +20,7 @@
 
     <!-- carousel -->
     <% include include/carousel-small %>
-    <div>
+    <div class="menu-container">
 
         <div class="container">
 
@@ -28,14 +28,14 @@
                 <h2>Our Menu</h2>
             </div>
 
-            <div class="row margin-top-2">
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn active">
+            <div class="row margin-top-2 text-center hidden-xs">
+                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label class="col-xs-12 btn btn-default active menu-filter">
                         <input type="checkbox" class="filter-checkbox filter-all"
                                autocomplete="off" value="*" checked> All Items
                     </label>
                     <% locals._.each(categories, function (category) { %>
-                        <label class="btn">
+                        <label class="col-xs-12 btn btn-default menu-filter">
                             <input type="checkbox" class="filter-checkbox filter-category" autocomplete="off"
                                    value=".<%= category.slug  %>"> <%= category.title %>
                         </label>
@@ -43,17 +43,39 @@
                 </div>
             </div>
 
+            <div class="row visible-xs">
+                <div class="margin-top-2 dropdown">
+                    <button type="button" class="btn btn-block btn-default dropdown-toggle" data-toggle="dropdown">
+                        Menu Sections <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu menu-nav">
+                        <li>
+                            <label>
+                                <input type="checkbox" class="filter-checkbox filter-all"
+                                       autocomplete="off" value="*" checked> All Items
+                            </label>
+                        </li>
+                        <li class="divider"></li>
+                        <% locals._.each(categories, function (category) { %>
+                        <li>
+                            <label>
+                                <input type="checkbox" class="filter-checkbox filter-category" autocomplete="off"
+                                       value=".<%= category.slug  %>"> <%= category.title %>
+                            </label>
+                        </li>
+                        <% }) %>
+                    </ul>
+
+                </div>
+            </div>
+
+            <hr class="margin-top-4" />
+
             <div class="row featured grid margin-top-2">
-                <% locals._.each(items, function (item) { %>
-                    <a class="col-xs-12 col-sm-4 col-md-4 col-lg-3 margin-top-1 element-item <%= item.category.slug %>" href="/menu/<%= item.id %>">
-                        <div class="featured-thumbnail">
-                            <img src="<%= item.imageUri %>" class="img-circle img-thumbnail">
-                            <h2><%= item.title %> | $<%= item.basePrice.toFixed(2) %></h2>
-                            <hr/>
-                            <p><%= item.shortDesc %></p>
-                        </div>
-                    </a>
-                <% }) %>
+
+                <!-- Items grid -->
+                <% include include/items-grid.ejs %>
+
             </div>
 
         </div>
@@ -75,10 +97,10 @@
                 var filter = '*';
                 if($(this).hasClass('filter-all')) {
                     console.log('filterall')
-                    $('.filter-category').removeAttr('checked').parent().toggleClass('active');
+                    $('.filter-category').prop('checked', false).parent().removeClass('active');
                 } else {
                     console.log('filtercategory')
-                    $('.filter-all').removeAttr('checked').parent().toggleClass('active');
+                    $('.filter-all').prop('checked', false).parent().removeClass('active');
                     filter = $('input:checkbox:checked.filter-category').map(function () {
                         return this.value
                     }).get().join(', ')

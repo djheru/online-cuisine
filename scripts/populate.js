@@ -35,7 +35,8 @@ module.exports = function() {
                 "itemExtras": [],
                 "selectedItemExtras": [],
                 "itemOptions": [],
-                "selectedItemOptions": []
+                "selectedItemOptions": [],
+                "itemDeals": []
             },
             "itemExtras": [
                 {
@@ -57,6 +58,20 @@ module.exports = function() {
                     "groupName": "Steak Toppings",
                     "shortDesc": "Our special 7-mushroom blend, sauteed in browned butter and sage",
                     "price": 3.99,
+                    "isDefault": false
+                },
+                {
+                    "name": "French Onions",
+                    "groupName": "Extras",
+                    "shortDesc": "Light crispy onions",
+                    "price": 0,
+                    "isDefault": false
+                },
+                {
+                    "name": "au jus",
+                    "groupName": "Extras",
+                    "shortDesc": "The juice",
+                    "price": 0,
                     "isDefault": false
                 }
             ],
@@ -103,6 +118,29 @@ module.exports = function() {
                     "price": 0,
                     "isDefault": false
                 }
+            ],
+            "itemDeals": [
+                {
+                    "title": "Lunch Special",
+                    "description": "Save 10% on our great lunch specials (10am - 2pm Monday-Friday)",
+                    "dealType": "percentDiscount",
+                    "discountPercent": 10,
+                    "numberOfItems": 1
+                },
+                {
+                    "title": "Happy Hour Special",
+                    "description": "Save 20% on our great happy hour deals (4pm - 6pm Monday-Friday)",
+                    "dealType": "percentDiscount",
+                    "discountPercent": 20,
+                    "numberOfItems": 1
+                },
+                {
+                    "title": "Wednesday Dinner Special",
+                    "description": "Order a dinner special for just 19.99 (4pm - 8pm Wednesdays)",
+                    "dealType": "reducedPriceDiscount",
+                    "reducedPrice": 19.99,
+                    "numberOfItems": 1
+                }
             ]
         };
     };
@@ -112,9 +150,11 @@ module.exports = function() {
         var seed,
             itemExtras = [],
             itemOptions = [],
+            itemDeals = [],
             item = null,
             Side = models.Item.Side,
-            Item = models.Item.Item;
+            Item = models.Item.Item
+            Deal = models.Item.Deal;
 
         Item.remove({}, function (err) {
 
@@ -126,6 +166,9 @@ module.exports = function() {
                 itemOptions = _.map(seed.itemOptions, function (option) {
                     return new Side(option);
                 });
+                itemDeals = _.map(seed.itemDeals, function (deal) {
+                    return new Deal(deal);
+                });
 
                 seed.item.imageUri = ((i % 3) == 1) ? '/img/menu/default.png' : "/img/menu/1.jpg";
                 console.log(seed.item.imageUri);
@@ -133,6 +176,7 @@ module.exports = function() {
                 item = new Item(seed.item);
                 item.itemExtras = itemExtras;
                 item.itemOptions = itemOptions;
+                item.itemDeals = itemDeals;
                 item.save(function (err) {
                     if (err) {
                         appGlobals.logger.info('Error: ', err);

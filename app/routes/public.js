@@ -20,6 +20,10 @@ module.exports = function (express, passport) {
     routeExport.route(config.public.home)
         .get(handlers.home.get);
 
+    //contact routes
+    routeExport.route(config.public.contact)
+        .get(handlers.contact.get);
+
     //signup routes
     routeExport.route(config.public.signup)
         .get(handlers.signup.get)
