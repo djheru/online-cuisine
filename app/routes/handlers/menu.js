@@ -2,7 +2,7 @@
 var mongoose = require('mongoose'),
     _ = require('underscore');
 
-module.exports = function (express, models) {
+module.exports = function (express, models, config) {
     return {
 
         //Middleware to glean the provider type
@@ -38,11 +38,17 @@ module.exports = function (express, models) {
 
         //Display an item
         "menuItem": {
-            "get": function (req, res, next) {
+            "get": function (req, res) {
+                console.log('get')
                 res.render('menu-item.ejs', {
                     item: req.item,
                     csrfToken: req.csrfToken()
                 });
+            },
+            "post": function (req, res, next) {
+                console.log(req.body, req.item);
+                req.flash('successMessage', 'The item was added to your order!');
+                res.redirect(config.menu.menu);
             }
         },
     };

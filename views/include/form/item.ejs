@@ -2,10 +2,11 @@
     <input type="hidden" id="csrf" name="_csrf" value="<%= csrfToken %>">
     <hr />
     <div class="col-xs-12 form-group">
+        <% include ../flash %>
         <div class="col-sm-6 item-options-container">
             <% locals._.each(locals._.groupBy(item.itemOptions, 'groupName'), function (val, key, list) { %>
             <h5>Select: <strong><%= key %></strong></h5>
-            <select id="<%= key %>" class="hidden form-control item-option">
+            <select id="<%= key %>" name="selectedItemOptions" class="hidden form-control item-option">
                 <% locals._.each(val, function (option) { %>
                 <option
                         <%= (option.isDefault) ? ' selected ' : '' %>
@@ -20,12 +21,12 @@
         </div>
         <div class="col-sm-6 item-extras-container">
             <h5>Choose Extras</h5>
-            <select multiple id="extras" class="hidden form-control item-extra">
+            <select multiple id="extras" name="selectedItemExtras" class="hidden form-control item-extra">
                 <% locals._.each(locals._.groupBy(item.itemExtras, 'groupName'),
                 function (extras, groupName, groupedList) { %>
                 <optgroup label="<%= groupName %>">
                     <% locals._.each(extras, function (extra){ %>
-                    <option id="<%= extra.id %>" <%= (extra.isDefault) ? ' selected ' : '' %>>
+                    <option id="<%= extra.id %>" <%= (extra.isDefault) ? ' selected ' : '' %> value="<%= extra.id %>">
                         <%= extra.name %> | $<%= extra.price %>
                     </option>
                     <% }) %>

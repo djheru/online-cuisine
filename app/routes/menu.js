@@ -8,7 +8,7 @@ var middleware = require('./middleware/index');
 
 module.exports = function (express) {
 
-    var handlers = require('./handlers/menu')(express, models);
+    var handlers = require('./handlers/menu')(express, models, config);
 
     //set us up the router
     var routeExport = express.Router();
@@ -24,7 +24,13 @@ module.exports = function (express) {
 
     //Menu Item
     routeExport.route(config.menu.menuItem)
-        .get(handlers.menuItem.get);
+        //menu item form
+        .get(handlers.menuItem.get)
+        //add item to order
+        .post(middleware.menu.validateItem)
+        .post(middleware.menu.buildItemFromBody)
+        .post(handlers.menuItem.post);
+
 
     return routeExport;
 };

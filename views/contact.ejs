@@ -5,19 +5,10 @@
     <!-- head -->
     <% include include/head %>
     <style>
-        html {
-            height: 100%;
-        }
-
-        body {
-            height: 100%;
-            background-color: #CCC;
-        }
 
         #map-outer {
             height: 300px;
             padding: 20px;
-            border: 2px solid #CCC;
             margin-bottom: 20px;
             background-color: #FFF;
         }
@@ -56,7 +47,8 @@
         <div class="modal-body">
 
             <div class="container-fluid">
-                <div class="row">
+                <div class="row well">
+
                     <div id="map-outer" class="col-md-12">
                         <div id="address" class="col-md-4">
                             <h2>Our Location</h2>
@@ -69,10 +61,12 @@
                         </div>
                         <div id="map-container" class="col-md-8"></div>
                     </div>
+
                 </div>
 
-                <div class="row">
+                <div class="row well">
                     <form class="form-horizontal" name="commentform">
+
                         <div class="form-group">
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="first_name" name="first_name"
@@ -82,25 +76,27 @@
                                 <input type="text" class="form-control" id="last_name" name="last_name"
                                        placeholder="Last Name"/>
                             </div>
-                            <div class="col-md-4 input-group">
-                                <span class="input-group-addon">@</span>
+                            <div class="col-md-4">
                                 <input type="email" class="form-control" id="email" name="email"
                                        placeholder="Email Address"/>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <div class="col-md-12">
-                    <textarea rows="6" class="form-control" id="comments" name="comments"
-                              placeholder="Your question or comment here"></textarea>
+                                <textarea rows="6" class="form-control" id="comments" name="comments"
+                                          placeholder="Your question or comment here"></textarea>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <div class="col-md-6">
-                                <button type="submit" value="Submit" class="btn btn-success btn-large pull-right">
+                            <div class="col-md-12">
+                                <button type="submit" value="Submit" class="btn btn-success btn-block center-block">
                                     Send
                                 </button>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -114,11 +110,11 @@
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
     function init_map() {
-        var myLocation = new google.maps.LatLng(45.430817, 12.331516);
+        var myLocation = new google.maps.LatLng(42.8597689, -85.5732947);
 
         var mapOptions = {
             center: myLocation,
-            zoom: 14
+            zoom: 15
         };
 
         var marker = new google.maps.Marker({

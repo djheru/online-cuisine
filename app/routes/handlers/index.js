@@ -1,7 +1,6 @@
 //Route Handlers
 
 module.exports = function (express, passport, models, mailer, config) {
-console.log(models)
     return {
         "admin": require('./admin')(express),
         "public": require('./public')(express, passport, models, mailer, config),

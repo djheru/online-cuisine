@@ -2,7 +2,9 @@
 var _ = require('underscore'),
     moment = require('moment'),
     models = require('../../models'),
+    customValidators = require('./validators'),
     dealMiddleware = require('./deal'),
+    utils = require('./utils'),
     menuMiddleware = require('./menu');
 module.exports = {
 
@@ -77,6 +79,7 @@ module.exports = {
         res.locals._ = _;
         return next();
     },
+    "customValidators": customValidators,
     "menu": menuMiddleware,
     "deal": dealMiddleware
 }
