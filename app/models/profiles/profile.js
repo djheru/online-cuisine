@@ -9,7 +9,7 @@ var mongoose =  require('mongoose')
 module.exports = function () {
 
     var profileSchema = Schema({
-        _owner: { type: ObjectId, ref: 'User' },
+        user: { type: ObjectId, ref: 'User' },
         firstName: { type: String, trim: true },
         lastName: { type: String, trim: true },
         phone: { type: String, required: true, trim: true },

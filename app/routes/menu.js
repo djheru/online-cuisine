@@ -29,6 +29,7 @@ module.exports = function (express) {
         //add item to order
         .post(middleware.menu.validateItem)
         .post(middleware.menu.buildItemFromBody)
+        .post(middleware.menu.addItemToOrder)
         .post(handlers.menuItem.post);
 
 

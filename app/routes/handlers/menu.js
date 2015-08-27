@@ -39,14 +39,12 @@ module.exports = function (express, models, config) {
         //Display an item
         "menuItem": {
             "get": function (req, res) {
-                console.log('get')
                 res.render('menu-item.ejs', {
                     item: req.item,
                     csrfToken: req.csrfToken()
                 });
             },
             "post": function (req, res, next) {
-                console.log(req.body, req.item);
                 req.flash('successMessage', 'The item was added to your order!');
                 res.redirect(config.menu.menu);
             }

@@ -24,6 +24,6 @@ module.exports = {
                 isBsonArray = false;
             }
         });
-        return false;// isBsonArray;
+        return isBsonArray;
     }
 };

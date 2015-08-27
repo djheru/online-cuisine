@@ -21,6 +21,8 @@ nav.navbar  {
 
 body.home > .alert {
     margin-bottom: 0px;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 .well, .jumbotron {
