@@ -38,11 +38,23 @@ module.exports = function (express, models, config) {
 
         //Display an item
         "menuItem": {
-            "get": function (req, res) {
-                res.render('menu-item.ejs', {
-                    item: req.item,
-                    csrfToken: req.csrfToken()
+            "get": function (req, res, next) {
+                //todo this needs to go somewhere else
+                var Companion = models.Profile.Companion,
+                    companion = new Companion({name: "me"});
+
+                companion.save(function (err) {
+                    console.log(companion);
+                    if (err) {
+                        return next(err);
+                    }
+                    res.render('menu-item.ejs', {
+                        item: req.item,
+                        csrfToken: req.csrfToken(),
+                        companions: [companion]
+                    });
                 });
+
             },
             "post": function (req, res, next) {
                 req.flash('successMessage', 'The item was added to your order!');

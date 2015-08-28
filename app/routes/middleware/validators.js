@@ -10,14 +10,14 @@ module.exports = {
     isEmptyOrNumber: function (value) {
         return (value === '' || !isNaN(parseFloat(value)));
     },
-    isEmptyOrBsonArray: function (value) {
+    isEmptyOrBsonOrBsonArray: function (value) {
+        var isBsonArray = true;
+
         if (value === [] || value === null || value === '' || value === false || typeof value === 'undefined') {
             return true;
         }
-        var isArray = (value.constructor === Array),
-            isBsonArray = true;
-        if (!isArray) {
-            return false;
+        if (value.constructor !== Array) {
+            value = [ value ];
         }
         _.each(value, function (supposedBson) {
             if (!isBson(supposedBson)) {

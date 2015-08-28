@@ -3,6 +3,7 @@ var mongoose =  require('mongoose')
     , Schema = mongoose.Schema
     , SideSchema = require('./side')
     , DealSchema = require('./deal')
+    , CompanionSchema = require('../profiles/companion')
     , _ = require('underscore')
     , discountStrategies = {
         //$4.00 lunch special, i.e. Items a certain price, actual discount may vary
@@ -56,7 +57,7 @@ module.exports = function () {
         imageUri:			{ type: String },
         isFeatured:			{ type: Boolean },
         isActive:           { type: Boolean },
-        itemFor: 			{ type: Schema.ObjectId, ref: 'Companion' },
+        itemFor: 			[ CompanionSchema ],
         itemExtras:			[ SideSchema ],
         selectedItemExtras: [ SideSchema ],
         itemOptions:		[ SideSchema ],
@@ -67,9 +68,9 @@ module.exports = function () {
     itemSchema
         .virtual('totalPrice')
         .get(function () {
-            var sides = this.selectedItemExtras.concat(this.selectedItemOptions);
+            var sides = _.pluck(this.selectedItemExtras.concat(this.selectedItemOptions), 'price');
             return parseFloat(_.reduce(sides, function (memo, price) {
-                return memo + price;
+                return parseFloat(memo) + parseFloat(price);
             }, this.salePrice)).toFixed(2);
         });
 

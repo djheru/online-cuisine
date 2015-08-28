@@ -1,0 +1,46 @@
+<!-- views/index.ejs -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- head -->
+    <% include include/head %>
+    <!-- load custom carousel stylesheet -->
+    <link rel="stylesheet" href="/css/carousel.css">
+</head>
+
+
+<body class="home">
+
+    <!-- navbar header -->
+    <% include include/nav %>
+
+    <!-- carousel -->
+    <% include include/carousel-small %>
+
+    <!-- flash messages -->
+    <% include include/flash %>
+    <div class="menu-container">
+
+        <div class="container">
+
+            <div class="row margin-top-2">
+                <h2>Your Order</h2>
+            </div>
+
+            <hr />
+
+            <div class="container">
+                <!-- Items grid -->
+                <% include include/order-items-grid.ejs %>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- javascript -->
+    <% include include/scripts %>
+
+</body>
+</html>

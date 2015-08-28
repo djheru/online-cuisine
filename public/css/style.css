@@ -219,6 +219,10 @@ ul.multiselect-container > li.multiselect-group{
     padding-top: 10px;
 }
 
+.order-item-details > p {
+    margin: 0;
+}
+
 @media (max-width: 768px) {
     .modal-dialog {
         margin-top: 60px;

@@ -78,21 +78,21 @@ module.exports = function() {
             "itemOptions": [
                 {
                     "name": "6oz Petite Filet",
-                    "groupName": "Filet Sizes",
+                    "groupName": "Filet Size",
                     "shortDesc": "6oz Petite Filet",
                     "price": -4.99,
                     "isDefault": false
                 },
                 {
                     "name": "8oz Filet",
-                    "groupName": "Filet Sizes",
+                    "groupName": "Filet Size",
                     "shortDesc": "8oz Filet",
                     "price": 0,
                     "isDefault": true
                 },
                 {
                     "name": "10oz Hearty Filet",
-                    "groupName": "Filet Sizes",
+                    "groupName": "Filet Size",
                     "shortDesc": "10oz Hearty Filet",
                     "price": 4.99,
                     "isDefault": false
@@ -153,7 +153,7 @@ module.exports = function() {
             itemDeals = [],
             item = null,
             Side = models.Item.Side,
-            Item = models.Item.Item
+            Item = models.Item.Item,
             Deal = models.Item.Deal;
 
         Item.remove({}, function (err) {

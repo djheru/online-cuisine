@@ -67,9 +67,11 @@ module.exports = {
             "menu": {
                 "menu": "/menu",
                 "menuItem": "/menu/:itemId",
+            },
+
+            "order": {
                 "order": "/order",
-                "orderItem": "/order/:itemId",
-                "editOrderItem": "/order/:itemId/edit",
+                "orderItem": "/order/:orderItemId"
             },
 
             "checkout": {

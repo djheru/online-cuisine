@@ -5,30 +5,7 @@ var _ = require('underscore'),
     mongoose = require('mongoose');
 
 module.exports = {
-    "items": function (req, res, next) {
-        var Item = models.Item.Item;
-        Item
-            .find({isActive: true})
-            .exec(function (err, items) {
-                if (err) {
-                    return next(err);
-                }
-                req.items = items;
-                next();
-            });
-    },
-    "categories": function (req, res, next) {
-        if (!req.items) {
-            return next();
-        }
-        var itemCategories = _.pluck(req.items, 'category');
-        var uniqueCategories = _.uniq(itemCategories, false, function (category) {
-            return category.slug;
-        });
-        req.categories = _.sortBy(uniqueCategories, 'slug');
-        next();
-    },
-    "validateItem": function (req, res, next) {
+    "validateOrderItem": function (req, res, next) {
         req.checkBody('selectedItemExtras', 'Please select valid extras for this item').isEmptyOrBsonOrBsonArray();
         req.checkBody('selectedItemOptions', 'Please select valid options for this item').isEmptyOrBsonOrBsonArray();
         //Validation failed
@@ -37,7 +14,7 @@ module.exports = {
         }
         next();
     },
-    "buildItemFromBody": function (req, res, next) {
+    "buildOrderItemFromBody": function (req, res, next) {
         //todo get this from the companions from the user profile
         var Companion = models.Profile.Companion;
         console.log(req.body.itemFor);
@@ -57,5 +34,46 @@ module.exports = {
 
                 next();
             });
+    },
+    "sessionOrder": function (req, res, next) {
+        var Order = models.Order;
+
+        if (_.isUndefined(req.session.orderId)) {
+            var orderData = {
+                    user: req.user || null,
+                    orderStarted: new Date(),
+                    orderItems: [ req.item ]
+                },
+                order = new Order(orderData);
+
+            order.save(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                req.session.orderId = order.id;
+                return next();
+            });
+
+        } else {
+            Order
+                .where({_id: req.session.orderId})
+                .findOne(function (err, order) {
+                    if (err) {
+                        return next(err);
+                    }
+                    req.order = order;
+                    next();
+                });
+        }
+    },
+    "addItemToOrder": function (req, res, next) {
+        console.log('2', req.item.itemFor);
+        req.order.orderItems.push(req.item); // = []; //
+        req.order.save(function (err) {
+            return (err) ? next(err) : next();
+        });
+    },
+    "editOrderItem": function (req, res, next) {
+        return next();
     }
 };

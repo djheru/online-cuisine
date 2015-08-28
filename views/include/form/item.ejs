@@ -43,7 +43,9 @@
         </label>
         <div class="col-md-2 item-for-container">
             <select id="itemFor" name="itemFor" class="hidden form-control text-right">
-                <option>Me</option>
+                <% locals._.each(companions, function (companion) { %>
+                <option value="<%= companion.id %>"><%= companion.name %></option>
+                <% }) %>
             </select>
         </div>
     </div>

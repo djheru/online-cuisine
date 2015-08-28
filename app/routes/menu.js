@@ -13,6 +13,9 @@ module.exports = function (express) {
     //set us up the router
     var routeExport = express.Router();
 
+    //use middleware to retrieve order from session
+    routeExport.use(middleware.order.sessionOrder);
+
     //validate itemId param and store in the session
     routeExport.param('itemId', handlers.params.itemId);
 
@@ -29,9 +32,8 @@ module.exports = function (express) {
         //add item to order
         .post(middleware.menu.validateItem)
         .post(middleware.menu.buildItemFromBody)
-        .post(middleware.menu.addItemToOrder)
+        .post(middleware.order.addItemToOrder)
         .post(handlers.menuItem.post);
-
 
     return routeExport;
 };

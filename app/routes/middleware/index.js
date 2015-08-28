@@ -4,6 +4,7 @@ var _ = require('underscore'),
     models = require('../../models'),
     customValidators = require('./validators'),
     dealMiddleware = require('./deal'),
+    orderMiddleware = require('./order'),
     utils = require('./utils'),
     menuMiddleware = require('./menu');
 module.exports = {
@@ -81,5 +82,6 @@ module.exports = {
     },
     "customValidators": customValidators,
     "menu": menuMiddleware,
-    "deal": dealMiddleware
+    "deal": dealMiddleware,
+    "order": orderMiddleware
 }

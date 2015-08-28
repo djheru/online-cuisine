@@ -129,6 +129,7 @@ var routes = require('./app/routes')(express, passport);
 app.use('/', routes.public);
 app.use('/', routes.passport);
 app.use('/', routes.menu);
+app.use('/', routes.order);
 
 app.use('/', routes.protected);
 app.use('/', routes.admin);
