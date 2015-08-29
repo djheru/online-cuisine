@@ -44,7 +44,6 @@ module.exports = function (express, models, config) {
                     companion = new Companion({name: "me"});
 
                 companion.save(function (err) {
-                    console.log(companion);
                     if (err) {
                         return next(err);
                     }

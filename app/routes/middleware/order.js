@@ -6,6 +6,11 @@ var _ = require('underscore'),
 
 module.exports = {
     "validateOrderItem": function (req, res, next) {
+
+        req.body.selectedItemExtras = (req.body.selectedItemExtras.constructor !== Array) ?
+            [ req.body.selectedItemExtras ] : req.body.selectedItemExtras;
+        req.body.selectedItemOptions = (req.body.selectedItemOptions.constructor !== Array) ?
+            [ req.body.selectedItemOptions ] : req.body.selectedItemOptions;
         req.checkBody('selectedItemExtras', 'Please select valid extras for this item').isEmptyOrBsonOrBsonArray();
         req.checkBody('selectedItemOptions', 'Please select valid options for this item').isEmptyOrBsonOrBsonArray();
         //Validation failed
@@ -17,7 +22,6 @@ module.exports = {
     "buildOrderItemFromBody": function (req, res, next) {
         //todo get this from the companions from the user profile
         var Companion = models.Profile.Companion;
-        console.log(req.body.itemFor);
         Companion
             .where({ _id: req.body.itemFor})
             .findOne(function (err, companion) {
@@ -25,13 +29,29 @@ module.exports = {
                     return next(err);
                 }
                 req.item.itemFor = [companion];
+
                 req.item.selectedItemExtras = _.filter(req.item.itemExtras, function (extra) {
                     return (_.indexOf(req.body.selectedItemExtras, extra.id) >= 0);
                 });
                 req.item.selectedItemOptions = _.filter(req.item.itemOptions, function (option) {
                     return (_.indexOf(req.body.selectedItemOptions, option.id) >= 0);
                 });
-
+                _.map(req.item.selectedItemExtras, function (extra) {
+                    extra.isDefault = true;
+                    return extra;
+                });
+                _.map(req.item.itemExtras, function (extra) {
+                    extra.isDefault = false;
+                    return extra;
+                });
+                _.map(req.item.selectedItemOptions, function (option) {
+                    option.isDefault = true;
+                    return option;
+                });
+                _.map(req.item.itemOptions, function (option) {
+                    option.isDefault = false;
+                    return option;
+                });
                 next();
             });
     },
@@ -51,6 +71,7 @@ module.exports = {
                     return next(err);
                 }
                 req.session.orderId = order.id;
+                req.order = order;
                 return next();
             });
 
@@ -69,9 +90,6 @@ module.exports = {
     "addItemToOrder": function (req, res, next) {
         var itemData = req.item.toJSON();
         delete itemData._id;
-        if (!_.has(req.order, 'orderItems')) {
-            req.order.orderItems = [];
-        }
         req.order.orderItems.push(itemData); // = []; //
         req.order.save(function (err) {
             return (err) ? next(err) : next();

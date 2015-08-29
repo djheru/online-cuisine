@@ -7,21 +7,13 @@ module.exports = function (express, models, config) {
 
         "params": {
             "orderItemId": function (req, res, next, orderItemId) {
-                var Item = models.Item.Item;
-                req.orderItemId =(mongoose.Types.ObjectId.isValid(orderItemId)) ? orderItemId : false;
-                if (!req.orderItemId) {
-                    return next();
+                req.orderItemId =(mongoose.Types.ObjectId.isValid(orderItemId)) ?
+                    orderItemId : false;
+                if (req.orderItemId) {
+                    req.item = req.order.orderItems.id(req.orderItemId);
                 }
 
-                Item
-                    .where({_id: req.orderItemId, isActive: true})
-                    .findOne(function (err, orderItem) {
-                        if (err) {
-                            return next(err);
-                        }
-                        req.orderItem = orderItem;
-                        next();
-                    });
+                return next();
             }
         },
 
@@ -39,9 +31,20 @@ module.exports = function (express, models, config) {
         //Display an item
         "orderItem": {
             "get": function (req, res) {
-                res.render('order-item.ejs', {
-                    item: req.item,
-                    csrfToken: req.csrfToken()
+                //todo this needs to go somewhere else
+                var Companion = models.Profile.Companion,
+                    companion = new Companion({name: "me"});
+
+                companion.save(function (err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    console.log(req.item)
+                    res.render('order-item.ejs', {
+                        item: req.item,
+                        csrfToken: req.csrfToken(),
+                        companions: [companion]
+                    });
                 });
             },
             "post": function (req, res, next) {
