@@ -1,0 +1,68 @@
+<form method="post" class="form-horizontal">
+    <input type="hidden" id="csrf" name="_csrf" value="<%= csrfToken %>">
+    <hr />
+    <div class="col-xs-12 form-group">
+        <% include ../flash %>
+        <div class="col-sm-6 item-options-container">
+            <% locals._.each(locals._.groupBy(item.itemOptions, 'groupName'), function (val, key, list) { %>
+            <h5>Select: <strong><%= key %></strong></h5>
+            <select id="<%= key %>" name="selectedItemOptions" class="hidden form-control item-option">
+                <% locals._.each(val, function (option) { %>
+                <option id="<%= option.id %>"
+                        <%= (option.isDefault) ? ' selected ' : '' %>
+                        value="<%= option.id %>">
+                    <%= option.name %> | $<%= option.price %>
+                </option>
+                <% }) %>
+            </select>
+            <br />
+            <% }) %>
+        </div>
+        <div class="col-sm-6 item-extras-container">
+            <h5>Choose Extras</h5>
+            <select multiple id="extras" name="selectedItemExtras" class="hidden form-control item-extra">
+                <% locals._.each(locals._.groupBy(item.itemExtras, 'groupName'),
+                function (extras, groupName, groupedList) { %>
+                <optgroup label="<%= groupName %>">
+                    <% locals._.each(extras, function (extra){ %>
+                    <option id="<%= extra.id %>" <%= (extra.isDefault) ? ' selected ' : '' %> value="<%= extra.id %>">
+                        <%= extra.name %> | $<%= extra.price %>
+                    </option>
+                    <% }) %>
+                </optgroup>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+    <div class="form-group col-xs-12">
+        <hr/>
+    </div>
+    <div class="form-group col-xs-12">
+        <label for="itemFor" class="col-md-10 text-right pull right">
+            <h5>Order Item For:</h5>
+        </label>
+        <div class="col-md-2 item-for-container">
+            <select id="itemFor" name="itemFor" class="hidden form-control text-right">
+                <% locals._.each(companions, function (companion) { %>
+                <option value="<%= companion.id %>"><%= companion.name %></option>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-12 form-group">
+        <div class="col-md-4 pull-right text-left">
+            <button type="submit" class="btn btn-success btn-lg btn-block">
+                <span class="fa fa-plus-circle"></span>
+                Update Order Item
+            </button>
+        </div>
+        <div class="col-md-8 text-right pull-left">
+            <h5>
+                <a class="btn btn-link" href="/menu">
+                    <span class="fa fa-backward"></span>
+                    Return to Order
+                </a>
+            </h5>
+        </div>
+    </div>
+</form>
