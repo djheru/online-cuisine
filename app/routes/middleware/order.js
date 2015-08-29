@@ -67,8 +67,12 @@ module.exports = {
         }
     },
     "addItemToOrder": function (req, res, next) {
-        console.log('2', req.item.itemFor);
-        req.order.orderItems.push(req.item); // = []; //
+        var itemData = req.item.toJSON();
+        delete itemData._id;
+        if (!_.has(req.order, 'orderItems')) {
+            req.order.orderItems = [];
+        }
+        req.order.orderItems.push(itemData); // = []; //
         req.order.save(function (err) {
             return (err) ? next(err) : next();
         });

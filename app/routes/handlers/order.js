@@ -30,7 +30,8 @@ module.exports = function (express, models, config) {
             "get": function (req, res, next) {
                 res.render('order.ejs', {
                     order: req.order || null,
-                    items: req.order.orderItems || []
+                    items: (req.order && req.order.orderItems) ?
+                        req.order.orderItems : []
                 });
             }
         },

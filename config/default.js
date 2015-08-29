@@ -71,12 +71,13 @@ module.exports = {
 
             "order": {
                 "order": "/order",
-                "orderItem": "/order/:orderItemId"
+                "orderItem": "/order/:orderItemId",
+                "removeItem": "/order/:orderItemId/remove"
             },
 
             "checkout": {
                 "checkout": "/checkout",
-                "payment": "/payment",
+                "payment": "/payment"
             }
         }
     }

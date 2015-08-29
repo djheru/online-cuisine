@@ -18,7 +18,7 @@ var mongoose =  require('mongoose')
 
         //$2.00 off
         "amountDiscount": function (basePrice, deal) {
-            return parseFloat(basePrice - deal.discountAmount).toFixed(2);;
+            return parseFloat(basePrice - deal.discountAmount).toFixed(2);
         },
 
         ///4 for $20
@@ -78,7 +78,7 @@ module.exports = function () {
         .virtual('selectedDeal')
         .get(function () {
             var bestDeal = {},
-                lowestPrice = this.basePrice
+                lowestPrice = this.basePrice,
                 parseIterator = function (deal) {
                     if (discountStrategies[deal.dealType](this.basePrice, deal) < lowestPrice) {
                         bestDeal = deal;
@@ -90,7 +90,6 @@ module.exports = function () {
             }
             _.each(this.itemDeals, parseIterator);
             return bestDeal;
-            return parseFloat(lowestPrice).toFixed(2);
         });
 
     itemSchema
