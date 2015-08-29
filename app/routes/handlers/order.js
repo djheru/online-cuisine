@@ -28,7 +28,7 @@ module.exports = function (express, models, config) {
             }
         },
 
-        //Display an item
+        //Display/edit an order item
         "orderItem": {
             "get": function (req, res) {
                 //todo this needs to go somewhere else
@@ -39,7 +39,7 @@ module.exports = function (express, models, config) {
                     if (err) {
                         return next(err);
                     }
-                    console.log(req.item)
+                    console.log(req.item);
                     res.render('order-item.ejs', {
                         item: req.item,
                         csrfToken: req.csrfToken(),
@@ -48,9 +48,22 @@ module.exports = function (express, models, config) {
                 });
             },
             "post": function (req, res, next) {
-                req.flash('successMessage', 'The item was added to your order!');
+                req.flash('successMessage', 'The item was updated!');
                 res.redirect(config.order.order);
             }
         },
+
+        "removeItem": {
+            "get": function (req, res) {
+                res.render('remove-order-item.ejs', {
+                    item: req.item,
+                    csrfToken: req.csrfToken()
+                });
+            },
+            "post": function (req, res) {
+                req.flash('successMessage', 'The item was removed from your order!');
+                res.redirect(config.order.order);
+            }
+        }
     };
 };

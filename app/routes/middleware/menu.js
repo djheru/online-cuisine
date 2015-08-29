@@ -30,10 +30,10 @@ module.exports = {
     },
     "validateItem": function (req, res, next) {console.log(req.body);
         console.log(req.body.selectedItemExtras);
-        req.body.selectedItemExtras = (req.body.selectedItemExtras.constructor !== Array) ?
+        req.body.selectedItemExtras = (req.body.selectedItemExtras && req.body.selectedItemExtras.constructor !== Array) ?
             [ req.body.selectedItemExtras ] : req.body.selectedItemExtras;
         console.log(req.body.selectedItemExtras);
-        req.body.selectedItemOptions = (req.body.selectedItemOptions.constructor !== Array) ?
+        req.body.selectedItemOptions = (req.body.selectedItemExtras && req.body.selectedItemOptions.constructor !== Array) ?
             [ req.body.selectedItemOptions ] : req.body.selectedItemOptions;
 
         req.checkBody('selectedItemExtras', 'Please select valid extras for this item').isEmptyOrBsonOrBsonArray();
@@ -77,7 +77,6 @@ module.exports = {
                     option.isDefault = true;
                     return option;
                 });
-
                 next();
             });
     }

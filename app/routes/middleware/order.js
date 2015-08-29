@@ -90,12 +90,22 @@ module.exports = {
     "addItemToOrder": function (req, res, next) {
         var itemData = req.item.toJSON();
         delete itemData._id;
-        req.order.orderItems.push(itemData); // = []; //
+        req.order.orderItems = [];
+        req.order.orderItems.push(itemData);
+        req.order.save(function (err) {
+            return (err) ? next(err) : next();
+        });
+    },
+    "removeItemFromOrder": function (req, res, next) {
+        req.order.orderItems.id(req.item.id).remove();
         req.order.save(function (err) {
             return (err) ? next(err) : next();
         });
     },
     "editOrderItem": function (req, res, next) {
-        return next();
+        req.order.save(function (err) {
+            return (err) ? next(err) : next();
+        });
+
     }
 };

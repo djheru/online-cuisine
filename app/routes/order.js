@@ -27,11 +27,21 @@ module.exports = function (express) {
     routeExport.route(config.order.orderItem)
         //order item form
         .get(handlers.orderItem.get)
-        //add item to order
+        //edit order Item
         .post(middleware.order.validateOrderItem)
         .post(middleware.order.buildOrderItemFromBody)
         .post(middleware.order.editOrderItem)
         .post(handlers.orderItem.post);
+
+    //Remove Order Item
+    routeExport.route(config.order.removeItem)
+        //delete item confirmation
+        .get(handlers.removeItem.get)
+
+        //Handle removal
+        .post(middleware.order.removeItemFromOrder)
+        .post(handlers.removeItem.post);
+
 
 
     return routeExport;
