@@ -2,20 +2,19 @@
 var mongoose =  require('mongoose')
     , Schema = mongoose.Schema
     , ObjectId = Schema.Types.ObjectId
-    , addressSchema = require('./address')
-    , companionSchema = require('./companion')
-    , itemSchema = require('../items/item');
+    , AddressSchema = require('./address')
+    , CompanionSchema = require('./companion')
+    , ItemSchema = require('../items/item');
 
 module.exports = function () {
 
     var profileSchema = Schema({
-        user: { type: ObjectId, ref: 'User' },
         firstName: { type: String, trim: true },
         lastName: { type: String, trim: true },
-        phone: { type: String, required: true, trim: true },
-        addresses: [ addressSchema ],
-        companions: [ companionSchema ],
-        favorites: [ itemSchema ]
+        phone: { type: String, trim: true },
+        addresses: [ AddressSchema ],
+        companions: [ CompanionSchema ],
+        favorites: [ ItemSchema ]
     });
 
     return profileSchema;

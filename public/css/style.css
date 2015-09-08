@@ -223,6 +223,10 @@ ul.multiselect-container > li.multiselect-group{
     margin: 0;
 }
 
+fieldset.disabled label {
+    color: #cfcfcf;
+}
+
 @media (max-width: 768px) {
     .modal-dialog {
         margin-top: 60px;

@@ -24,6 +24,7 @@ module.exports = function (express, passport, config) {
         //You can't even see me
         "profile": {
             "get": function (req, res) {
+                console.log('profile')
                 res.render('profile.ejs', {});
             }
         },
@@ -104,9 +105,7 @@ module.exports = function (express, passport, config) {
         //Seeding
         "seed": {
             "get": function (req, res) {
-                console.log('seed route - ' + __dirname);
                 if(process.env.SEED && process.env.SEED == 1) {
-                    console.log(req.seedCount);
                     var seedCount = req.seedCount || 11;
                     appGlobals.logger.info('seeding');
                     var devSeeder = require('./../../../scripts/populate')();

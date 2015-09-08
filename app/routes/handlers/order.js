@@ -20,11 +20,16 @@ module.exports = function (express, models, config) {
         //Main order page
         "order": {
             "get": function (req, res, next) {
-                res.render('order.ejs', {
-                    order: req.order || null,
-                    items: (req.order && req.order.orderItems) ?
-                        req.order.orderItems : []
-                });
+                if (!req.order || !_.isArray(req.order.orderItems) || _.isEmpty(req.order.orderItems)) {
+                    req.flash('infoMessage', 'You don\'t have anything added to your order yet!');
+                    res.redirect(config.menu.menu);
+                } else {
+                    res.render('order.ejs', {
+                        order: req.order || null,
+                        items: (req.order && req.order.orderItems) ?
+                            req.order.orderItems : []
+                    });
+                }
             }
         },
 
@@ -39,7 +44,6 @@ module.exports = function (express, models, config) {
                     if (err) {
                         return next(err);
                     }
-                    console.log(req.item);
                     res.render('order-item.ejs', {
                         item: req.item,
                         csrfToken: req.csrfToken(),

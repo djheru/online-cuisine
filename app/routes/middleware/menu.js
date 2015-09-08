@@ -6,14 +6,15 @@ var _ = require('underscore'),
 
 module.exports = {
     "items": function (req, res, next) {
-        var Item = models.Item.Item;
+        var Item = models.Item.Item,
+            params = req.params ? req.params : {isActive: true};
         Item
-            .find({isActive: true})
+            .find(params)
             .exec(function (err, items) {
                 if (err) {
                     return next(err);
                 }
-                req.items = items;
+                req.items = items || [];
                 next();
             });
     },
@@ -28,16 +29,17 @@ module.exports = {
         req.categories = _.sortBy(uniqueCategories, 'slug');
         next();
     },
-    "validateItem": function (req, res, next) {console.log(req.body);
-        console.log(req.body.selectedItemExtras);
-        req.body.selectedItemExtras = (req.body.selectedItemExtras && req.body.selectedItemExtras.constructor !== Array) ?
+    "validateItem": function (req, res, next) {
+        //If only one selected, value is a string, so wrap it in an array
+        req.body.selectedItemExtras = (req.body.selectedItemExtras && !_.isArray(req.body.selectedItemExtras)) ?
             [ req.body.selectedItemExtras ] : req.body.selectedItemExtras;
-        console.log(req.body.selectedItemExtras);
-        req.body.selectedItemOptions = (req.body.selectedItemExtras && req.body.selectedItemOptions.constructor !== Array) ?
+        req.body.selectedItemOptions = (req.body.selectedItemExtras && !_.isArray(req.body.selectedItemOptions)) ?
             [ req.body.selectedItemOptions ] : req.body.selectedItemOptions;
 
+        //validate that it's an array of bson if it exists
         req.checkBody('selectedItemExtras', 'Please select valid extras for this item').isEmptyOrBsonOrBsonArray();
         req.checkBody('selectedItemOptions', 'Please select valid options for this item').isEmptyOrBsonOrBsonArray();
+
         //Validation failed
         if (!utils.validationUtility(req, res)) {
             return res.redirect('back');
@@ -45,39 +47,33 @@ module.exports = {
         next();
     },
     "buildItemFromBody": function (req, res, next) {
-        //todo get this from the companions from the user profile
         var Companion = models.Profile.Companion;
-        Companion
-            .where({ _id: req.body.itemFor})
-            .findOne(function (err, companion) {
-                if (err) {
-                    return next(err);
-                }
-                req.item.itemFor = [companion];
 
-                req.item.selectedItemExtras = _.filter(req.item.itemExtras, function (extra) {
-                    return (_.indexOf(req.body.selectedItemExtras, extra.id) >= 0);
-                });
-                req.item.selectedItemOptions = _.filter(req.item.itemOptions, function (option) {
-                    return (_.indexOf(req.body.selectedItemOptions, option.id) >= 0);
-                });
-                _.map(req.item.itemExtras, function (extra) {
-                    extra.isDefault = false;
-                    return extra;
-                });
-                _.map(req.item.selectedItemExtras, function (extra) {
-                    extra.isDefault = true;
-                    return extra;
-                });
-                _.map(req.item.itemOptions, function (option) {
-                    option.isDefault = false;
-                    return option;
-                });
-                _.map(req.item.selectedItemOptions, function (option) {
-                    option.isDefault = true;
-                    return option;
-                });
-                next();
-            });
+        req.item.itemFor = (req.user && req.user.profiles) ?
+            req.user.profiles.id(req.body.itemFor) : new Companion({name: "Me" });
+
+        req.item.selectedItemExtras = _.filter(req.item.itemExtras, function (extra) {
+            return (_.indexOf(req.body.selectedItemExtras, extra.id) >= 0);
+        });
+        req.item.selectedItemOptions = _.filter(req.item.itemOptions, function (option) {
+            return (_.indexOf(req.body.selectedItemOptions, option.id) >= 0);
+        });
+        _.map(req.item.itemExtras, function (extra) {
+            extra.isDefault = false;
+            return extra;
+        });
+        _.map(req.item.selectedItemExtras, function (extra) {
+            extra.isDefault = true;
+            return extra;
+        });
+        _.map(req.item.itemOptions, function (option) {
+            option.isDefault = false;
+            return option;
+        });
+        _.map(req.item.selectedItemOptions, function (option) {
+            option.isDefault = true;
+            return option;
+        });
+        next();
     }
 };

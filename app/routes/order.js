@@ -28,8 +28,8 @@ module.exports = function (express) {
         //order item form
         .get(handlers.orderItem.get)
         //edit order Item
-        .post(middleware.order.validateOrderItem)
-        .post(middleware.order.buildOrderItemFromBody)
+        .post(middleware.menu.validateItem)
+        .post(middleware.menu.buildItemFromBody)
         .post(middleware.order.editOrderItem)
         .post(handlers.orderItem.post);
 
@@ -37,7 +37,6 @@ module.exports = function (express) {
     routeExport.route(config.order.removeItem)
         //delete item confirmation
         .get(handlers.removeItem.get)
-
         //Handle removal
         .post(middleware.order.removeItemFromOrder)
         .post(handlers.removeItem.post);

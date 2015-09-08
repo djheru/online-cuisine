@@ -4,6 +4,7 @@ module.exports = function (express, passport) {
     var routeExport = {};
 
     routeExport.admin       = require('./admin')(express);
+    routeExport.checkout    = require('./checkout')(express);
     routeExport.passport    = require('./passport')(express, passport);
     routeExport.protected   = require('./protected')(express, passport);
     routeExport.public      = require('./public')(express, passport);

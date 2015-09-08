@@ -5,6 +5,8 @@ var mongoose = require('mongoose')
     , bcrypt = require('bcrypt-nodejs')
     , uuid = require('node-uuid')
     , _ = require('underscore')
+    , ProfileSchema = require('./profiles/profile')
+    , CompanionSchema = require('./profiles/companion');
 
 module.exports = function(){
 
@@ -33,7 +35,8 @@ module.exports = function(){
             token: String,
             email: String,
             displayName: String
-        }
+        },
+        profiles: [ProfileSchema]
     });
 
 // methods ================================================
@@ -61,6 +64,19 @@ module.exports = function(){
         delete thisObj._id;
         return _.defaults(thisObj, mergeUserObj)
     };
+
+    //have a default profile for users
+    userSchema.pre("save", function (next) {
+        if (!this.profiles || this.profiles.length == 0) {
+            var Companion = mongoose.model('companion', CompanionSchema),
+                Profile = mongoose.model('profile', ProfileSchema),
+                companion = new Companion(),
+                profile = new Profile({ companions: [ companion ] });
+            this.profiles = [];
+            this.profiles.push(profile);
+        }
+        next();
+    });
 
     return userSchema;
 }();

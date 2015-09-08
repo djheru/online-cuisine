@@ -6,7 +6,7 @@ var mongoose =  require('mongoose')
 module.exports = function () {
 
     var companionSchema = Schema({
-        name: { type: String }
+        name: { type: String, default: "Me" }
     });
 
     return companionSchema;

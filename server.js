@@ -73,6 +73,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //store the user and config in res.locals
+//todo fixme use the config to create links in the view
 app.use(function (req, res, next) {
     res.locals.user = (req.isAuthenticated()) ? req.user : false;
     res.locals.config = appGlobals.config.get("app");
@@ -130,6 +131,7 @@ app.use('/', routes.public);
 app.use('/', routes.passport);
 app.use('/', routes.menu);
 app.use('/', routes.order);
+app.use('/', routes.checkout);
 
 app.use('/', routes.protected);
 app.use('/', routes.admin);

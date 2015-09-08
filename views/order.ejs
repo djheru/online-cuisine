@@ -25,7 +25,23 @@
         <div class="container">
 
             <div class="row margin-top-2">
-                <h2>Your Order</h2>
+                <div class="col-xs-6 col-lg-8">
+                    <h2>Your Order |
+                        <small class="text-success">$<%= order.totalPrice %></small></h2>
+                </div>
+                <div class="col-xs-6 col-lg-4 float-right">
+                    <div class="col-sm-6 col-md-6 margin-top-2">
+                        <h5>
+                            <a class="btn btn-link" href="/menu">
+                                <span class="fa fa-backward"></span>
+                                Return to Menu
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="col-sm-6 col-md-6 margin-top-2">
+                        <a href="/checkout" class="btn btn-success btn-lg">Check Out</a>
+                    </div>
+                </div>
             </div>
 
             <hr />

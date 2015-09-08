@@ -29,26 +29,28 @@
                         <div class="col-md-4">
                             <% if (item.imgUri != '') { %>
                             <img
-                                    src="<%= item.imageUri %>"
-                                    class="img-circle img-thumbnail img-responsive center-block" />
+                                src="<%= item.imageUri %>"
+                                class="img-circle img-thumbnail img-responsive center-block"/>
                             <% } %>
                         </div>
                         <div class="col-md-8">
                             <h3><%= item.title %></h3>
-                            <h5>Price: $<span id="itemPrice"><%= item.totalPrice %></span> </h5>
-                            <hr />
+                            <h5>Price: $<span id="itemPrice"><%= item.totalPrice %></span></h5>
+                            <hr/>
                             <h4>Description</h4>
+
                             <p class="hidden-xs">
-                               <%= item.longDesc %>
+                                <%= item.longDesc %>
                             </p>
+
                             <p class="visible-xs">
                                 <%= item.shortDesc %>
                             </p>
 
                             <% if (item.selectedDeal.title && item.selectedDeal.description) { %>
-                                <div class="alert alert-info deal-info">
-                                    <strong><%= item.selectedDeal.title %></strong> <%= item.selectedDeal.description %>
-                                </div>
+                            <div class="alert alert-info deal-info">
+                                <strong><%= item.selectedDeal.title %></strong> <%= item.selectedDeal.description %>
+                            </div>
                             <% } %>
                         </div>
                         <div class="col-xs-12">
@@ -66,12 +68,12 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         var itemStore = {
-            "id": "<%= item.id %>",
-            "totalPrice": <%= item.totalPrice %>,
-            <% locals._.each(['itemExtras', 'selectedItemExtras', 'itemOptions', 'selectedItemOptions'], function (collectionName) { %>
+                "id": "<%= item.id %>",
+                "totalPrice": <%= item.totalPrice %>,
+                <% locals._.each(['itemExtras', 'selectedItemExtras', 'itemOptions', 'selectedItemOptions'], function (collectionName) { %>
                 "<%= collectionName %>": [
                     <% locals._.each(item[collectionName], function (side) { %>
                     {
@@ -82,77 +84,77 @@
                     },
                     <% }) %>
                 ],
-            <% }) %>
-        }
+                <% }) %>
+            }
         //Event names
-        , EXTRA_PRICE_UPDATED = "item.extra.price.updated"
-        , OPTION_PRICE_UPDATED = "item.option.price.updated"
-        , ITEM_PRICE_UPDATED = "item.total.price.updated"
-        , initialize = function () {
-                    store.clear();
-                    store.set('item', itemStore);
-                };
+            , EXTRA_PRICE_UPDATED = "item.extra.price.updated"
+            , OPTION_PRICE_UPDATED = "item.option.price.updated"
+            , ITEM_PRICE_UPDATED = "item.total.price.updated"
+            , initialize = function () {
+                store.clear();
+                store.set('item', itemStore);
+            };
 
         initialize();
         //Item update event handlers
         $(document)
-                .on(OPTION_PRICE_UPDATED, function (e, updatedElementId, isSelected) {
-                    var option, options, item;
-                    if (store.enabled) {
-                        item = store.get('item') || itemStore;
-                        //first get the selected item
-                        option = _.findWhere(item.itemOptions, {id: updatedElementId});
-                        //remove any selectedItemOptions with the same group name
-                        options = _.reject(item.selectedItemOptions, function (o) {
-                            return o.groupName == option.groupName;
-                        });
-                        //add the selected one
-                        options.push(option);
-                        item.selectedItemOptions = options;
-                        store.set('item', item);
-                        $(document).trigger(ITEM_PRICE_UPDATED, [item.selectedItemOptions, item.selectedItemExtras]);
-                    }
-                })
-                .on(EXTRA_PRICE_UPDATED, function (e, updatedElementId, isSelected) {
-                    var extra, extras, item;
-                    if (store.enabled) {
-                        item = store.get('item') || itemStore;
-                        if (isSelected) {//get selected extra and put it in selectedExtras
-                            extra = _.findWhere(item.itemExtras, {id: updatedElementId});
-                            if(extra){
-                                item.selectedItemExtras.push(extra);
-                            }
-                        } else {//remove selected extra from selectedExtras
-                            extras = _.reject(item.selectedItemExtras, function (extra) {
-                                return extra.id == updatedElementId;
-                            });
-                            item.selectedItemExtras = extras;
+            .on(OPTION_PRICE_UPDATED, function (e, updatedElementId, isSelected) {
+                var option, options, item;
+                if (store.enabled) {
+                    item = store.get('item') || itemStore;
+                    //first get the selected item
+                    option = _.findWhere(item.itemOptions, {id: updatedElementId});
+                    //remove any selectedItemOptions with the same group name
+                    options = _.reject(item.selectedItemOptions, function (o) {
+                        return o.groupName == option.groupName;
+                    });
+                    //add the selected one
+                    options.push(option);
+                    item.selectedItemOptions = options;
+                    store.set('item', item);
+                    $(document).trigger(ITEM_PRICE_UPDATED, [item.selectedItemOptions, item.selectedItemExtras]);
+                }
+            })
+            .on(EXTRA_PRICE_UPDATED, function (e, updatedElementId, isSelected) {
+                var extra, extras, item;
+                if (store.enabled) {
+                    item = store.get('item') || itemStore;
+                    if (isSelected) {//get selected extra and put it in selectedExtras
+                        extra = _.findWhere(item.itemExtras, {id: updatedElementId});
+                        if (extra) {
+                            item.selectedItemExtras.push(extra);
                         }
-                        store.set('item', item);
-                        $(document).trigger(ITEM_PRICE_UPDATED, [item.selectedItemOptions, item.selectedItemExtras])
+                    } else {//remove selected extra from selectedExtras
+                        extras = _.reject(item.selectedItemExtras, function (extra) {
+                            return extra.id == updatedElementId;
+                        });
+                        item.selectedItemExtras = extras;
                     }
-                })
-                .on(ITEM_PRICE_UPDATED, function (e, options, extras){
-                    var item = store.get('item') || itemStore
-                        , sides = options.concat(extras)
-                        , totalPrice = parseFloat(_.reduce(sides, function (itemPrice, side) {
-                            return itemPrice + side.price;
-                        }, item.totalPrice));
-                    $('#itemPrice').text(totalPrice.toFixed(2));
-                });
+                    store.set('item', item);
+                    $(document).trigger(ITEM_PRICE_UPDATED, [item.selectedItemOptions, item.selectedItemExtras])
+                }
+            })
+            .on(ITEM_PRICE_UPDATED, function (e, options, extras) {
+                var item = store.get('item') || itemStore
+                    , sides = options.concat(extras)
+                    , totalPrice = parseFloat(_.reduce(sides, function (itemPrice, side) {
+                        return itemPrice + side.price;
+                    }, item.totalPrice));
+                $('#itemPrice').text(totalPrice.toFixed(2));
+            });
 
         //configure multiselect plugins
         $('.item-option').multiselect({
             buttonClass: 'btn btn-block',
             onChange: function (option, checked) {
-                $(document).trigger(OPTION_PRICE_UPDATED, [ $(option).attr('id'), checked ]);
+                $(document).trigger(OPTION_PRICE_UPDATED, [$(option).attr('id'), checked]);
             }
         });
         $('.item-extra').multiselect({
             buttonClass: 'btn btn-block',
             numberDisplayed: 1,
             onChange: function (option, checked) {
-                $(document).trigger(EXTRA_PRICE_UPDATED, [ $(option).attr('id'), checked ]);
+                $(document).trigger(EXTRA_PRICE_UPDATED, [$(option).attr('id'), checked]);
             }
         });
         $('#itemFor').multiselect({
