@@ -8,7 +8,10 @@ module.exports = function (express, models, config) {
         //Main menu
         "checkout": {
             "get": function (req, res, next) {
-                res.render('checkout.ejs', {});
+                res.render('checkout.ejs', {
+                    items: (req.order && req.order.orderItems) ?
+                        req.order.orderItems : []
+                });
             }
         },
 

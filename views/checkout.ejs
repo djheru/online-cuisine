@@ -28,166 +28,196 @@
 
                         <form class="form form-horizontal" id="payment" method="post">
 
+                            <input type="hidden" name="stripeToken" id="stripeToken" />
+
                             <ul>
                                 <li><a href="#orderTypeContainer" data-toggle="tab">Order Type</a></li>
-                                <li><a href="#deliveryInfoContainer" data-toggle="tab">Delivery Info</a></li>
-                                <li><a href="#paymentInfoContainer" data-toggle="tab">Payment</a></li>
-                                <li><a href="#confirmContainer" data-toggle="tab">Confirm</a></li>
+                                <li><a href="#paymentInfoContainer" data-toggle="tab">Payment Type</a></li>
+                                <li><a href="#confirmContainer" data-toggle="tab">Confirmation</a></li>
                             </ul>
+
+                            <div class="margin-top-1 progress active" style="height: 8px;">
+                                <div id="progress" class="progress-bar progress-bar-success" style="width: 25%"></div>
+                            </div>
+                            <div id="alertContainer" class="hidden">
+                                <div class="alert alert-danger">
+
+                                </div>
+                            </div>
 
                             <div class="tab-content margin-top-3">
 
                                 <div class="tab-pane col-xs-12" id="orderTypeContainer">
+
                                     <fieldset id="orderTypeFieldset">
-                                        <label class="margin-btm-2">
+                                        <label class="margin-btm-1">
                                             <h4>How will you be ordering today?</h4>
                                         </label>
-                                        <div class="form-group">
+                                        <div class="form-group margin-btm-2">
                                             <div class="btn-group col-xs-12" data-toggle="buttons">
-                                                <label class="btn btn-primary btn-lg col-xs-6">
-                                                    <input type="radio" name="orderType" value="carryout"
-                                                           id="orderTypeCarryout" autocomplete="off"> For Carryout
+                                                <label class="btn btn-primary btn-lg col-xs-6 active">
+                                                    <input type="radio" name="orderType" value="carryout" checked
+                                                           id="orderTypeCarryout" autocomplete="off">
+                                                    <i class="fa fa-user"></i>
+                                                    For Carryout
                                                 </label>
                                                 <label class="btn btn-primary btn-lg col-xs-6">
                                                     <input type="radio" name="orderType" value="delivery"
-                                                           id="orderTypeDelivery" autocomplete="off"> For Delivery
+                                                           id="orderTypeDelivery" autocomplete="off">
+                                                    <i class="fa fa-road"></i>
+                                                    For Delivery
                                                 </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group margin-top-3">
-                                            <div class="col-sm-offset-3 col-sm-9">
-                                                <div class="pull-right">
-                                                    <a href="/order" class="btn btn-default">Back</a>
-                                                    <button type="button" class="btn btn-primary btn-next">Save</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </fieldset>
 
-                                </div>
+                                    <hr />
 
-                                <div class="tab-pane col-xs-12" id="deliveryInfoContainer">
-                                    <div class="col-xs-12">
-                                        <fieldset id="deliveryInfoFieldset" class="disabled">
-                                            <label class="margin-btm-2">
-                                                <h4>Where will the delivery be going?</h4>
-                                            </label>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="textinput">Line 1</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="streetAddress1" disabled
-                                                           placeholder="Address Line 1" class="form-control">
+                                    <fieldset id="deliveryInfoFieldset" class="disabled">
+                                        <label class="margin-btm-2">
+                                            <h4>Where will the delivery be going?</h4>
+                                        </label>
+                                        <div class="form-group"  id="streetAddress1Container">
+                                            <label class="col-sm-2 control-label" for="streetAddress1">Line 1</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="streetAddress1" id="streetAddress1" disabled
+                                                       placeholder="Address Line 1" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="Container">
+                                            <label class="col-sm-2 control-label" for="streetAddress2">Line 2</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="streetAddress2" id="streetAddress2" disabled
+                                                       placeholder="Address Line 2" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="cityContainer">
+                                            <label class="col-sm-2 control-label" for="city">City</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="city" id="city" disabled
+                                                       placeholder="City" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="stateContainer">
+                                            <label class="col-sm-2 control-label" for="state">State</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="state" id="state" disabled
+                                                       placeholder="State" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group" id="postalCodeContainer">
+                                            <label class="col-sm-2 control-label" for="postalCode">Postcode</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="postalCode" id="postalCode" disabled
+                                                       placeholder="Post Code" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <hr class="margin-top-2" />
+
+                                        <div class="form-group margin-top-3">
+                                            <div class="col-sm-offset-3 col-sm-9">
+                                                <div class="pull-right">
+                                                    <a href="/order" class="btn btn-link">
+                                                        <i class="fa fa-backward"></i> Return to Order</a>
+                                                    <button type="button" class="btn btn-primary btn-next"><i class="fa fa-save"></i> Save</button>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="textinput">Line 2</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="streetAddress2" disabled
-                                                           placeholder="Address Line 2" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="textinput">City</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="city" disabled
-                                                           placeholder="City" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="textinput">State</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" name="state" disabled
-                                                           placeholder="State" class="form-control">
-                                                </div>
-
-                                                <label class="col-sm-2 control-label" for="textinput">Postcode</label>
-                                                <div class="col-sm-4">
-                                                    <input type="text" name="postalCode" disabled
-                                                           placeholder="Post Code" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group margin-top-3">
-                                                <div class="col-sm-offset-3 col-sm-9">
-                                                    <div class="pull-right">
-                                                        <button type="button" class="btn btn-default btn-prev">Back</button>
-                                                        <button type="button" class="btn btn-primary btn-next">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </div>
+                                        </div>
+                                    </fieldset>
 
                                 </div>
 
                                 <div class="tab-pane col-xs-12" id="paymentInfoContainer">
+
                                     <fieldset id="paymentInfoFieldset">
-                                        <label class="margin-btm-2">
+                                        <label class="margin-btm-1">
                                             <h4>How would you like to pay?</h4>
                                         </label>
                                         <div class="form-group margin-btm-2">
                                             <div class="btn-group col-xs-12" data-toggle="buttons">
-                                                <label class="btn btn-success col-xs-6 active">
+
+                                                <label class="btn btn-success btn-lg col-xs-6 active">
                                                     <input type="radio" name="paymentType" value="cash"
-                                                           id="paymentTypeCash" autocomplete="off" checked> Pay with Cash
+                                                           id="paymentTypeCash" autocomplete="off" checked>
+                                                    <i class="fa fa-money"></i>
+                                                    Pay with Cash
                                                 </label>
-                                                <label class="btn btn-success col-xs-6">
+
+                                                <label class="btn btn-success btn-lg col-xs-6">
                                                     <input type="radio" name="paymentType" value="card"
-                                                           id="paymentTypeCard" autocomplete="off"> Pay with Card
+                                                           id="paymentTypeCard" autocomplete="off">
+                                                    <i class="fa fa-credit-card"></i>
+                                                    Pay with Card
                                                 </label>
+
                                             </div>
                                         </div>
                                     </fieldset>
+
                                     <hr />
+
                                     <fieldset id="cardInfoFieldset" class="disabled">
+
                                         <label class="margin-btm-2">
                                             <h4>Card Payment Details</h4>
                                         </label>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="textinput">Billing First Name</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="" class="form-control" disabled>
-                                            </div>
-                                            <label class="col-sm-2 control-label" for="textinput">Billing Last Name</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="" class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="textinput">Card Number</label>
+                                            <label class="col-sm-2 control-label" for="name">
+                                                Billing Name
+                                            </label>
                                             <div class="col-sm-10">
-                                                <input type="text" placeholder="" class="form-control" disabled>
+                                                <input type="text" placeholder="Name on the Card"  id="name"
+                                                       class="form-control" data-stripe="name" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="textinput">Exp. Month</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="" class="form-control" disabled>
-                                            </div>
-                                            <label class="col-sm-2 control-label" for="textinput">Exp. Year</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="" class="form-control" disabled>
+                                            <label class="col-sm-2 control-label" for="number">
+                                                Card Number
+                                            </label>
+                                            <div class="col-sm-10">
+                                                <input type="text" placeholder="Credit Card Number" id="number"
+                                                       class="form-control" id="number" data-stripe="number" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="textinput">CVC</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="" class="form-control" disabled>
-                                            </div>
-                                            <label class="col-sm-2 control-label" for="textinput">Postal Code</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" placeholder="" class="form-control" disabled>
+                                            <label class="col-sm-2 control-label" for="exp-month">
+                                                Exp. Month
+                                            </label>
+                                            <div class="col-sm-10">
+                                                <input type="text" placeholder="Expiration Month (1-12)" id="exp-month"
+                                                       class="form-control" data-stripe="exp-month" disabled>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="exp-year">Exp. Year</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" placeholder="Expiration Year (4 digits)" id="exp-year"
+                                                       class="form-control" data-stripe="exp-year" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="cvc">CVC</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" placeholder="3 Digit Code on Back" id="cvc"
+                                                       class="form-control" data-stripe="cvc" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="address-zip">Postal Code</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" placeholder="Billing ZIP Code" id="address_zip"
+                                                       class="form-control" data-stripe="address_zip" disabled>
+                                            </div>
+                                        </div>
+
+                                        <hr class="margin-top-2" />
 
                                         <div class="form-group margin-top-3">
                                             <div class="col-sm-offset-3 col-sm-9">
                                                 <div class="pull-right">
-                                                    <button type="button" class="btn btn-default btn-prev">Back</button>
-                                                    <button type="button" class="btn btn-primary btn-next">Save</button>
+                                                    <button type="button" class="btn btn-default btn-prev"><i class="fa fa-backward"></i> Back</button>
+                                                    <button type="button" class="btn btn-primary btn-next"><i class="fa fa-save"></i> Save</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,9 +228,25 @@
 
                                 <div class="tab-pane col-xs-12" id="confirmContainer">
                                     <fieldset id="confirmFieldset">
-                                        <label class="margin-btm-2">
+                                        <label class="margin-btm-1">
                                             <h4>Does everything look correct?</h4>
                                         </label>
+
+                                        <hr class="margin-top-2" />
+
+                                        <div class="form-group margin-top-3">
+                                            <div class="col-sm-offset-3 col-sm-9">
+                                                <div class="pull-right">
+                                                    <button type="button" class="btn btn-default btn-prev">
+                                                        <i class="fa fa-backward"></i> Back</button>
+                                                    <button id="submit" type="submit"
+                                                            class="btn btn-success">
+                                                        <i class="fa fa-check"></i>
+                                                        Submit Order</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </fieldset>
                                 </div>
 
@@ -211,12 +257,6 @@
 
                 </div>
 
-                <div class="margin-top-2 margin-btm-2">
-                    <div class="progress active" style="height: 10px;">
-                        <div class="progress-bar progress-bar-success" style="width: 25%"></div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -225,47 +265,204 @@
 
     <!-- javascript -->
     <% include include/scripts %>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script type="text/javascript" src="/js/jquery.bootstrap.wizard.min.js"></script>
+
     <script type="text/javascript">
 
         $(document).ready(function () {
 
+            Stripe.setPublishableKey('pk_test_8OGcKXmWBHhghgYhpjOqEYzF');
+
+            var wizard = $('#payment');
+
+            var $paymentForm = $('#payment');
+            console.log($paymentForm);
+
+            var $orderTypeCarryout = $('#orderTypeCarryout')
+                , $orderTypeDelivery = $('#orderTypeDelivery')
+                , $paymentTypeCash = $('#paymentTypeCash')
+                , $paymentTypeCard = $('#paymentTypeCard');
+
+            var $streetAddress1 = $('#streetAddress1')
+                , $streetAddress2 = $('#streetAddress2')
+                , $city = $('#city')
+                , $state = $('#state')
+                , $postalCode = $('#postalCode');
+
+            var $name = $('#name')
+                , $number = $('#number')
+                , $expMonth = $('#exp-month')
+                , $expYear = $('#exp-year')
+                , $cvc = $('#cvc')
+                , $zip = $('#address_zip');
+
+            var displayValidationErrors = function (msgArray) {
+                if (msgArray.length == 0) {
+                    $('#alertContainer').addClass('hidden');
+                    return;
+                }
+                var errorMessages = msgArray.join('<br />');
+                $('#alertContainer > .alert').html(errorMessages);
+                $('#alertContainer').removeClass('hidden');
+            };
+
+            var stripeResponseHandler = function (status, response) {
+                console.log('status', status);
+                console.log('response', response);
+                if (response.error) {
+                    var messageArray = [ response.error.message ];
+                    displayValidationErrors(messageArray);
+                    $('#submit').prop('disabled', false);
+                    wizard.bootstrapWizard('show', 1);
+                    $paymentForm.once('submit', submitHandler);
+                } else {
+                    $('#stripeToken').val(response.id);
+                    $paymentForm.submit();
+                }
+            };
+
+            var submitHandler = function (e) {
+                console.log('initial submit');
+                var $form = $(this);
+                $('#submit').prop('disabled', true);
+                Stripe.card.createToken($form, stripeResponseHandler);
+                return false;
+            };
+
             var validator = function (index) {
+
+                    console.log('validator page: ', index);
 
                     var indexValidators = [
                             function () {
-                                console.log('validator page 1');
                                 return true;
+
                             },
                             function () {
-                                console.log('validator page 2');
-                                return true;
+                                var valid = true
+                                    , messageArray = [];
+                                if ($orderTypeCarryout.prop('checked')) {
+                                    return true;
+                                }
+
+                                if (!$streetAddress1.val()) {
+                                    valid = false;
+                                    $streetAddress1.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid street address.');
+                                } else {
+                                    $streetAddress1.parents('.form-group').removeClass('has-error');
+                                }
+
+                                if (!$city.val()) {
+                                    valid = false;
+                                    $city.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid city.');
+                                } else {
+                                    $city.parents('.form-group').removeClass('has-error');
+                                }
+                                displayValidationErrors(messageArray);
+                                return valid;
                             },
                             function () {
-                                console.log('validator page 3');
-                                return true;
+                                var valid = true
+                                    , messageArray = [];
+
+                                if ($paymentTypeCash.prop('checked')) {
+                                    return true;
+                                }
+
+                                if (!$name.val()) {
+                                    valid = false;
+                                    $name.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid name.');
+                                } else {
+                                    $name.parents('.form-group').removeClass('has-error');
+                                }
+
+                                if (!$number.val()) {
+                                    valid = false;
+                                    $number.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid card number.');
+                                } else {
+                                    $number.parents('.form-group').removeClass('has-error');
+                                }
+
+                                if (!$expMonth.val()) {
+                                    valid = false;
+                                    $expMonth.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid month.');
+                                } else {
+                                    $expMonth.parents('.form-group').removeClass('has-error');
+                                }
+
+                                if (!$expYear.val()) {
+                                    valid = false;
+                                    $expYear.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid year.');
+                                } else {
+                                    $expYear.parents('.form-group').removeClass('has-error');
+                                }
+
+                                if (!$cvc.val()) {
+                                    valid = false;
+                                    $cvc.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid cvc.');
+                                } else {
+                                    $cvc.parents('.form-group').removeClass('has-error');
+                                }
+
+                                if (!$zip.val()) {
+                                    valid = false;
+                                    $zip.parents('.form-group').addClass('has-error');
+                                    messageArray.push('Please enter a valid zip code.');
+                                } else {
+                                    $zip.parents('.form-group').removeClass('has-error');
+                                }
+
+                                console.log(messageArray);
+
+                                displayValidationErrors(messageArray);
+                                return valid;
                             }
                         ],
 
-                        validatorFunction = indexValidators[index];
+                        validatorFunction = (index >= 0 && index < indexValidators.length) ?
+                            indexValidators[index] : false;
 
                     return validatorFunction();
                 },
 
                 enableDeliveryFieldset = function () {
                     console.log('enable delivery fieldset');
+                    $('#deliveryInfoFieldset')
+                        .removeClass('disabled');
+                    $('#deliveryInfoFieldset input:disabled')
+                        .prop('disabled', false);
                 },
 
                 disableDeliveryFieldset = function () {
                     console.log('disable delivery fieldset');
+                    $('#deliveryInfoFieldset')
+                        .addClass('disabled');
+                    $('#deliveryInfoFieldset input')
+                        .prop('disabled', true);
                 },
 
                 enableCardFieldset = function () {
                     console.log('enable card fieldset');
+                    $('#cardInfoFieldset')
+                        .removeClass('disabled');
+                    $('#cardInfoFieldset input:disabled')
+                        .prop('disabled', false);
                 },
 
                 disableCardFieldset = function () {
                     console.log('disable card fieldset');
+                    $('#cardInfoFieldset')
+                        .addClass('disabled');
+                    $('#cardInfoFieldset input')
+                        .prop('disabled', true);
                 },
 
                 CARRYOUT_ORDER = "checkout.carryout",
@@ -292,12 +489,12 @@
                     }
                 })
                 .on(CARD_PAYMENT, function (e) {
-                    if (!$("#cardInfoFieldset").hasClass('disabled')) {
+                    if ($("#cardInfoFieldset").hasClass('disabled')) {
                         enableCardFieldset();
                     }
                 })
                 .on(CASH_PAYMENT, function (e) {
-                    if ($("#cardInfoFieldset").hasClass('disabled')) {
+                    if (!$("#cardInfoFieldset").hasClass('disabled')) {
                         disableCardFieldset();
                     }
                 })
@@ -305,37 +502,50 @@
 
                 });
 
-            $('#payment').bootstrapWizard({
+            wizard.bootstrapWizard({
                 'tabClass': 'nav nav-pills',
                 'nextSelector': '.btn-next',
                 'previousSelector': '.btn-prev',
                 'onNext': function (tab, nav, index) {
-                    console.log('onNext: ', $('form').serializeArray());
+                    console.log('onNext: ', index, $('form').serializeArray());
                     return validator(index);
                 },
                 'onPrevious': function (tab, nav, index) {
-                    console.log('onPrevious: ', $('form').serializeArray());
+                    console.log('onPrevious: ', index, $('form').serializeArray());
                 },
                 'onTabShow': function (tab, nav, index) {
-                    console.log('onTabShow: ', $('form').serializeArray());
+                    var width = (index + 1) * 33.33;
+                    $('#progress').css({'width': width + '%' });
                 }
             });
 
-            $('#orderTypeCarryout').parent('label').on('click', function (e) {
-                $(document).trigger(CARRYOUT_ORDER);
-            });
+            $orderTypeCarryout
+                .parent('label')
+                .on('click', function (e) {
+                    $(document).trigger(CARRYOUT_ORDER);
+                });
 
-            $('#orderTypeDelivery').parent('label').on('click', function (e) {
-                $(document).trigger(DELIVERY_ORDER);
-            });
+            $orderTypeDelivery
+                .parent('label')
+                .on('click', function (e) {
+                    $(document).trigger(DELIVERY_ORDER);
+                });
 
-            $('#paymentTypeCash').parent('label').on('click', function (e) {
-                $(document).trigger(CASH_PAYMENT);
-            });
+            $paymentTypeCash
+                .parent('label')
+                .on('click', function (e) {
+                    console.log('click cash');
+                    $(document).trigger(CASH_PAYMENT);
+                });
 
-            $('#paymentTypeCard').parent('label').on('click', function (e) {
-                $(document).trigger(CARD_PAYMENT);
-            });
+            $paymentTypeCard
+                .parent('label')
+                .on('click', function (e) {
+                    console.log('click card');
+                    $(document).trigger(CARD_PAYMENT);
+                });
+
+            $paymentForm.one('submit', submitHandler);
         });
 
     </script>
