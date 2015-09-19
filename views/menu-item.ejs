@@ -70,7 +70,8 @@
 
         var itemStore = {
             "id": "<%= item.id %>",
-            "totalPrice": <%= item.totalPrice %>,
+                "salePrice": <%= item.salePrice %>,
+                "totalPrice": <%= item.totalPrice %>,
             <% locals._.each(['itemExtras', 'selectedItemExtras', 'itemOptions', 'selectedItemOptions'], function (collectionName) { %>
                 "<%= collectionName %>": [
                     <% locals._.each(item[collectionName], function (side) { %>
@@ -137,7 +138,7 @@
                         , sides = options.concat(extras)
                         , totalPrice = parseFloat(_.reduce(sides, function (itemPrice, side) {
                             return itemPrice + side.price;
-                        }, item.totalPrice));
+                        }, item.salePrice));
                     $('#itemPrice').text(totalPrice.toFixed(2));
                 });
 

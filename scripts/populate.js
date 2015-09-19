@@ -28,7 +28,7 @@ module.exports = function() {
                 "longDesc": "A tenderloin filet from certified organic grass-fed cows. " +
                     "Cooked to perfection in a water bath set to 130 degrees, briefly seared " +
                     "under an 800 degree broiler and topped with your choice of flavor enhancers",
-                "basePrice": 49.99,
+                "basePrice": 49.00,
                 "isFeatured": true,
                 "isActive": true,
                 "itemFor": null,
@@ -43,21 +43,21 @@ module.exports = function() {
                     "name": "Shrimp Scampi",
                     "groupName": "Steak Toppings",
                     "shortDesc": "Shrimp sauteed in a garlic/butter/white wine sauce",
-                    "price": 4.99,
+                    "price": 4.00,
                     "isDefault": false
                 },
                 {
                     "name": "Blue Cheese Crumbles",
                     "groupName": "Steak Toppings",
                     "shortDesc": "Rich blue cheese and Panko crumbles, broiled to a golden crust",
-                    "price": 2.99,
+                    "price": 2.00,
                     "isDefault": false
                 },
                 {
                     "name": "Mushroom Medley",
                     "groupName": "Steak Toppings",
                     "shortDesc": "Our special 7-mushroom blend, sauteed in browned butter and sage",
-                    "price": 3.99,
+                    "price": 3.00,
                     "isDefault": false
                 },
                 {
@@ -80,7 +80,7 @@ module.exports = function() {
                     "name": "6oz Petite Filet",
                     "groupName": "Filet Size",
                     "shortDesc": "6oz Petite Filet",
-                    "price": -4.99,
+                    "price": -4.00,
                     "isDefault": false
                 },
                 {
@@ -94,7 +94,7 @@ module.exports = function() {
                     "name": "10oz Hearty Filet",
                     "groupName": "Filet Size",
                     "shortDesc": "10oz Hearty Filet",
-                    "price": 4.99,
+                    "price": 4.00,
                     "isDefault": false
                 },
                 {
@@ -136,9 +136,9 @@ module.exports = function() {
                 },
                 {
                     "title": "Wednesday Dinner Special",
-                    "description": "Order a dinner special for just 19.99 (4pm - 8pm Wednesdays)",
+                    "description": "Order a dinner special for just 19.00 (4pm - 8pm Wednesdays)",
                     "dealType": "reducedPriceDiscount",
-                    "reducedPrice": 19.99,
+                    "reducedPrice": 19.00,
                     "numberOfItems": 1
                 }
             ]

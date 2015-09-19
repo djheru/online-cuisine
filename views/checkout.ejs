@@ -26,7 +26,7 @@
                 <div class="container-fluid margin-btm-4">
                     <div class="col-xs-12">
 
-                        <form class="form form-horizontal" id="payment" method="post">
+                        <form class="form form-horizontal" action="/checkout" id="payment" method="post">
 
                             <input type="hidden" name="stripeToken" id="stripeToken" />
 
@@ -232,6 +232,8 @@
                                             <h4>Does everything look correct?</h4>
                                         </label>
 
+                                        <%%>
+
                                         <hr class="margin-top-2" />
 
                                         <div class="form-group margin-top-3">
@@ -240,7 +242,7 @@
                                                     <button type="button" class="btn btn-default btn-prev">
                                                         <i class="fa fa-backward"></i> Back</button>
                                                     <button id="submit" type="submit"
-                                                            class="btn btn-success">
+                                                            class="btn btn-success" disabled>
                                                         <i class="fa fa-check"></i>
                                                         Submit Order</button>
                                                 </div>
@@ -313,20 +315,22 @@
                 if (response.error) {
                     var messageArray = [ response.error.message ];
                     displayValidationErrors(messageArray);
-                    $('#submit').prop('disabled', false);
+                    $('#submit').prop('disabled', true);
                     wizard.bootstrapWizard('show', 1);
-                    $paymentForm.once('submit', submitHandler);
                 } else {
                     $('#stripeToken').val(response.id);
-                    $paymentForm.submit();
+                    $('#submit').prop('disabled', false);
+                    var data = $paymentForm.serializeArray();
+                    console.log(data);
                 }
             };
 
             var submitHandler = function (e) {
                 console.log('initial submit');
                 var $form = $(this);
-                $('#submit').prop('disabled', true);
+                //$('#submit').prop('disabled', true);
                 Stripe.card.createToken($form, stripeResponseHandler);
+                console.log('return from submitHdlr')
                 return false;
             };
 
@@ -420,9 +424,11 @@
                                     $zip.parents('.form-group').removeClass('has-error');
                                 }
 
-                                console.log(messageArray);
-
-                                displayValidationErrors(messageArray);
+                                if (valid) {
+                                    Stripe.card.createToken($paymentForm, stripeResponseHandler);
+                                } else {
+                                    displayValidationErrors(messageArray);
+                                }
                                 return valid;
                             }
                         ],
@@ -545,7 +551,6 @@
                     $(document).trigger(CARD_PAYMENT);
                 });
 
-            $paymentForm.one('submit', submitHandler);
         });
 
     </script>

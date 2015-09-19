@@ -72,6 +72,7 @@
 
         var itemStore = {
                 "id": "<%= item.id %>",
+                "salePrice": <%= item.salePrice %>,
                 "totalPrice": <%= item.totalPrice %>,
                 <% locals._.each(['itemExtras', 'selectedItemExtras', 'itemOptions', 'selectedItemOptions'], function (collectionName) { %>
                 "<%= collectionName %>": [
@@ -139,7 +140,7 @@
                     , sides = options.concat(extras)
                     , totalPrice = parseFloat(_.reduce(sides, function (itemPrice, side) {
                         return itemPrice + side.price;
-                    }, item.totalPrice));
+                    }, item.salePrice));
                 $('#itemPrice').text(totalPrice.toFixed(2));
             });
 
@@ -161,7 +162,6 @@
             buttonClass: 'btn btn-block',
             buttonContainer: '<div class="btn-group dropup" />'
         });
-
     });
 </script>
 
