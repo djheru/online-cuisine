@@ -227,6 +227,31 @@ fieldset.disabled label {
     color: #cfcfcf;
 }
 
+ul#confirmItems {
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+ul#confirmItems > li {
+}
+ul#confirmItems > li > h4 {
+    font-weight: normal;
+}
+
+#order-total h3, #order-total h4 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#order-total > .text-right {
+    padding-right: 5px;
+    padding-left: 25px;
+}
+
+#order-total > .text-left {
+    padding-left: 5px;
+    padding-right: 25px;
+}
+
 @media (max-width: 768px) {
     .modal-dialog {
         margin-top: 60px;
@@ -246,5 +271,9 @@ fieldset.disabled label {
     }
     ul.menu-nav > li > label > input {
 
+    }
+
+    .btn, .nav-pills {
+        font-size: .8em;
     }
 }

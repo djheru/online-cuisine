@@ -13,12 +13,15 @@ module.exports = function(env){
 
     var accessor = {};
     var config = require("./default.js");
+    var locationConfig = require("./location.js");
 
     if(supportedEnvironments.indexOf(env) < 0){
         console.log('Invalid environment: ' + env + '. Using development');
         env = 'development';
     }
     process.env.NODE_ENV = env;
+
+    _.extend(config, locationConfig);
 
     var file = "./" + env.toLowerCase() + ".js";
     var loadConfig = require(file);

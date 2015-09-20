@@ -47,210 +47,14 @@
 
                             <div class="tab-content margin-top-3">
 
-                                <div class="tab-pane col-xs-12" id="orderTypeContainer">
+                                <!-- Order type carryout/delivery -->
+                                <% include include/checkout/order-type %>
 
-                                    <fieldset id="orderTypeFieldset">
-                                        <label class="margin-btm-1">
-                                            <h4>How will you be ordering today?</h4>
-                                        </label>
-                                        <div class="form-group margin-btm-2">
-                                            <div class="btn-group col-xs-12" data-toggle="buttons">
-                                                <label class="btn btn-primary btn-lg col-xs-6 active">
-                                                    <input type="radio" name="orderType" value="carryout" checked
-                                                           id="orderTypeCarryout" autocomplete="off">
-                                                    <i class="fa fa-user"></i>
-                                                    For Carryout
-                                                </label>
-                                                <label class="btn btn-primary btn-lg col-xs-6">
-                                                    <input type="radio" name="orderType" value="delivery"
-                                                           id="orderTypeDelivery" autocomplete="off">
-                                                    <i class="fa fa-road"></i>
-                                                    For Delivery
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </fieldset>
+                                <!-- Payment type cash/card -->
+                                <% include include/checkout/payment-type %>
 
-                                    <hr />
-
-                                    <fieldset id="deliveryInfoFieldset" class="disabled">
-                                        <label class="margin-btm-2">
-                                            <h4>Where will the delivery be going?</h4>
-                                        </label>
-                                        <div class="form-group"  id="streetAddress1Container">
-                                            <label class="col-sm-2 control-label" for="streetAddress1">Line 1</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="streetAddress1" id="streetAddress1" disabled
-                                                       placeholder="Address Line 1" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group" id="Container">
-                                            <label class="col-sm-2 control-label" for="streetAddress2">Line 2</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="streetAddress2" id="streetAddress2" disabled
-                                                       placeholder="Address Line 2" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group" id="cityContainer">
-                                            <label class="col-sm-2 control-label" for="city">City</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="city" id="city" disabled
-                                                       placeholder="City" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group" id="stateContainer">
-                                            <label class="col-sm-2 control-label" for="state">State</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="state" id="state" disabled
-                                                       placeholder="State" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group" id="postalCodeContainer">
-                                            <label class="col-sm-2 control-label" for="postalCode">Postcode</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="postalCode" id="postalCode" disabled
-                                                       placeholder="Post Code" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <hr class="margin-top-2" />
-
-                                        <div class="form-group margin-top-3">
-                                            <div class="col-sm-offset-3 col-sm-9">
-                                                <div class="pull-right">
-                                                    <a href="/order" class="btn btn-link">
-                                                        <i class="fa fa-backward"></i> Return to Order</a>
-                                                    <button type="button" class="btn btn-primary btn-next"><i class="fa fa-save"></i> Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                </div>
-
-                                <div class="tab-pane col-xs-12" id="paymentInfoContainer">
-
-                                    <fieldset id="paymentInfoFieldset">
-                                        <label class="margin-btm-1">
-                                            <h4>How would you like to pay?</h4>
-                                        </label>
-                                        <div class="form-group margin-btm-2">
-                                            <div class="btn-group col-xs-12" data-toggle="buttons">
-
-                                                <label class="btn btn-success btn-lg col-xs-6 active">
-                                                    <input type="radio" name="paymentType" value="cash"
-                                                           id="paymentTypeCash" autocomplete="off" checked>
-                                                    <i class="fa fa-money"></i>
-                                                    Pay with Cash
-                                                </label>
-
-                                                <label class="btn btn-success btn-lg col-xs-6">
-                                                    <input type="radio" name="paymentType" value="card"
-                                                           id="paymentTypeCard" autocomplete="off">
-                                                    <i class="fa fa-credit-card"></i>
-                                                    Pay with Card
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <hr />
-
-                                    <fieldset id="cardInfoFieldset" class="disabled">
-
-                                        <label class="margin-btm-2">
-                                            <h4>Card Payment Details</h4>
-                                        </label>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="name">
-                                                Billing Name
-                                            </label>
-                                            <div class="col-sm-10">
-                                                <input type="text" placeholder="Name on the Card"  id="name"
-                                                       class="form-control" data-stripe="name" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="number">
-                                                Card Number
-                                            </label>
-                                            <div class="col-sm-10">
-                                                <input type="text" placeholder="Credit Card Number" id="number"
-                                                       class="form-control" id="number" data-stripe="number" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="exp-month">
-                                                Exp. Month
-                                            </label>
-                                            <div class="col-sm-10">
-                                                <input type="text" placeholder="Expiration Month (1-12)" id="exp-month"
-                                                       class="form-control" data-stripe="exp-month" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="exp-year">Exp. Year</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" placeholder="Expiration Year (4 digits)" id="exp-year"
-                                                       class="form-control" data-stripe="exp-year" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="cvc">CVC</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" placeholder="3 Digit Code on Back" id="cvc"
-                                                       class="form-control" data-stripe="cvc" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="address-zip">Postal Code</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" placeholder="Billing ZIP Code" id="address_zip"
-                                                       class="form-control" data-stripe="address_zip" disabled>
-                                            </div>
-                                        </div>
-
-                                        <hr class="margin-top-2" />
-
-                                        <div class="form-group margin-top-3">
-                                            <div class="col-sm-offset-3 col-sm-9">
-                                                <div class="pull-right">
-                                                    <button type="button" class="btn btn-default btn-prev"><i class="fa fa-backward"></i> Back</button>
-                                                    <button type="button" class="btn btn-primary btn-next"><i class="fa fa-save"></i> Save</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </fieldset>
-
-                                </div>
-
-                                <div class="tab-pane col-xs-12" id="confirmContainer">
-                                    <fieldset id="confirmFieldset">
-                                        <label class="margin-btm-1">
-                                            <h4>Does everything look correct?</h4>
-                                        </label>
-
-                                        <%%>
-
-                                        <hr class="margin-top-2" />
-
-                                        <div class="form-group margin-top-3">
-                                            <div class="col-sm-offset-3 col-sm-9">
-                                                <div class="pull-right">
-                                                    <button type="button" class="btn btn-default btn-prev">
-                                                        <i class="fa fa-backward"></i> Back</button>
-                                                    <button id="submit" type="submit"
-                                                            class="btn btn-success" disabled>
-                                                        <i class="fa fa-check"></i>
-                                                        Submit Order</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </fieldset>
-                                </div>
+                                <!-- Order confirmation -->
+                                <% include include/checkout/confirmation %>
 
                             </div>
 
@@ -440,7 +244,6 @@
                 },
 
                 enableDeliveryFieldset = function () {
-                    console.log('enable delivery fieldset');
                     $('#deliveryInfoFieldset')
                         .removeClass('disabled');
                     $('#deliveryInfoFieldset input:disabled')
@@ -448,15 +251,16 @@
                 },
 
                 disableDeliveryFieldset = function () {
-                    console.log('disable delivery fieldset');
                     $('#deliveryInfoFieldset')
-                        .addClass('disabled');
+                        .addClass('disabled')
+                        .children('.form-group')
+                        .removeClass('has-error');
                     $('#deliveryInfoFieldset input')
                         .prop('disabled', true);
+                    displayValidationErrors([]);
                 },
 
                 enableCardFieldset = function () {
-                    console.log('enable card fieldset');
                     $('#cardInfoFieldset')
                         .removeClass('disabled');
                     $('#cardInfoFieldset input:disabled')
@@ -464,11 +268,13 @@
                 },
 
                 disableCardFieldset = function () {
-                    console.log('disable card fieldset');
                     $('#cardInfoFieldset')
-                        .addClass('disabled');
+                        .addClass('disabled')
+                        .children('.form-group')
+                        .removeClass('has-error');
                     $('#cardInfoFieldset input')
                         .prop('disabled', true);
+                    displayValidationErrors([]);
                 },
 
                 CARRYOUT_ORDER = "checkout.carryout",
