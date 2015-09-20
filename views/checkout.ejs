@@ -83,7 +83,6 @@
             var wizard = $('#payment');
 
             var $paymentForm = $('#payment');
-            console.log($paymentForm);
 
             var $orderTypeCarryout = $('#orderTypeCarryout')
                 , $orderTypeDelivery = $('#orderTypeDelivery')
@@ -122,25 +121,23 @@
                     $('#submit').prop('disabled', true);
                     wizard.bootstrapWizard('show', 1);
                 } else {
+                    displayValidationErrors([]);
                     $('#stripeToken').val(response.id);
                     $('#submit').prop('disabled', false);
                     var data = $paymentForm.serializeArray();
                     console.log(data);
+                    wizard.bootstrapWizard('show', 2);
                 }
             };
 
             var submitHandler = function (e) {
-                console.log('initial submit');
                 var $form = $(this);
                 //$('#submit').prop('disabled', true);
                 Stripe.card.createToken($form, stripeResponseHandler);
-                console.log('return from submitHdlr')
                 return false;
             };
 
             var validator = function (index) {
-
-                    console.log('validator page: ', index);
 
                     var indexValidators = [
                             function () {
@@ -230,6 +227,7 @@
 
                                 if (valid) {
                                     Stripe.card.createToken($paymentForm, stripeResponseHandler);
+                                    return false;
                                 } else {
                                     displayValidationErrors(messageArray);
                                 }
@@ -319,11 +317,9 @@
                 'nextSelector': '.btn-next',
                 'previousSelector': '.btn-prev',
                 'onNext': function (tab, nav, index) {
-                    console.log('onNext: ', index, $('form').serializeArray());
                     return validator(index);
                 },
                 'onPrevious': function (tab, nav, index) {
-                    console.log('onPrevious: ', index, $('form').serializeArray());
                 },
                 'onTabShow': function (tab, nav, index) {
                     var width = (index + 1) * 33.33;
@@ -346,14 +342,12 @@
             $paymentTypeCash
                 .parent('label')
                 .on('click', function (e) {
-                    console.log('click cash');
                     $(document).trigger(CASH_PAYMENT);
                 });
 
             $paymentTypeCard
                 .parent('label')
                 .on('click', function (e) {
-                    console.log('click card');
                     $(document).trigger(CARD_PAYMENT);
                 });
 
