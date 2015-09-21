@@ -2,7 +2,8 @@
 var _ = require('underscore'),
     utils = require('./utils'),
     models = require('../../models'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    stripe = require("stripe")("sk_test_7H8kBXlgUBLngXTBAf5cYojn");
 
 module.exports = {
     "sessionOrder": function (req, res, next) {

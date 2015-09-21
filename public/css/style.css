@@ -25,6 +25,11 @@ body.home > .alert {
     font-weight: bold;
 }
 
+input:-webkit-autofill, input:-webkit-autofill:focus {
+    -webkit-box-shadow:0 0 0 500px white inset;
+}
+textarea, input, *:focus { outline: none !important; }
+
 .well, .jumbotron {
     word-wrap: break-word;
     background-color: #F2F2F2;

@@ -18,7 +18,8 @@ module.exports = function (express) {
 
     //Checkout
     routeExport.route(config.checkout.checkout)
-        .get(handlers.checkout.get);
+        .get(handlers.checkout.get)
+        .post(handlers.checkout.post);
 
     return routeExport;
 };

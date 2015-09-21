@@ -28,6 +28,7 @@
 
                         <form class="form form-horizontal" action="/checkout" id="payment" method="post">
 
+                            <input type="hidden" id="csrf" name="_csrf" value="<%= csrfToken %>">
                             <input type="hidden" name="stripeToken" id="stripeToken" />
 
                             <ul>
@@ -180,6 +181,7 @@
                                     , messageArray = [];
 
                                 if ($paymentTypeCash.prop('checked')) {
+                                    $('#submit').prop('disabled', false);
                                     return true;
                                 }
 
@@ -294,12 +296,10 @@
 
             $(document)
                 .on(CARRYOUT_ORDER, function (e) {
-                    console.log('carryout')
                     var price = (
                         parseFloat(orderData.subtotal) +
                         parseFloat(orderData.tax)
                     ).toFixed(2);
-                    console.log(orderData.tax);
                     $('#deliveryFeeContainer').hide();
                     $('#total').text(price);
 

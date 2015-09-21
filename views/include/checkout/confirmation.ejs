@@ -4,17 +4,30 @@
             <h4>Does everything look correct?</h4>
         </label>
 
-        <h5 class="margin-btm-2">Order Items (<%= items.length %>)</h5>
-        <ol id="confirmItems">
-            <% locals._.each(items, function (item) { %>
+        <div class="col-sm-6 col-xs-12">
+            <h5 class="margin-btm-2">Order Items | <%= items.length %></h5>
+            <ol id="confirmItems">
+                <% locals._.each(items, function (item) { %>
                 <li><h4><%= item.title %> | <small><%= item.totalPrice %></small></h4></li>
-            <% }) %>
-        </ol>
+                <% }) %>
+            </ol>
+        </div>
+
+        <div class="col-sm-6 col-xs-12">
+            <h5 class="margin-btm-2">Order Type | <span id="orderTypeDisplay">Carryout</span></h5>
+            <ul id="confirmDelivery" class="hidden">
+                <li id="deliveryAddress1"></li>
+                <li id="deliveryAddress2"></li>
+                <li id="deliveryCity"></li>
+                <li id="delivery"
+            </ul>
+            <h5 class="margin-btm-2">Payment Type | <span id="paymentTypeDisplay">Cash</span></h5>
+
+        </div>
 
         <hr />
 
         <div id="order-total" class="col-xs-12">
-
             <div class="col-xs-12" id="subtotalContainer">
                 <div class="col-xs-10 text-right">
                     <h4 class="text-right">Subtotal |</h4>
