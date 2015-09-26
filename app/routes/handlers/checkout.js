@@ -1,7 +1,6 @@
 //Handler for menu routes
 var mongoose = require('mongoose'),
-    _ = require('underscore'),
-    stripe = require("stripe")(appGlobals.config.get('stripe').secret);
+    _ = require('underscore');
 
 module.exports = function (express, models, config) {
     return {
@@ -9,7 +8,6 @@ module.exports = function (express, models, config) {
         //Main menu
         "checkout": {
             "get": function (req, res, next) {
-                console.log(config)
                 res.render('checkout.ejs', {
                     csrfToken: req.csrfToken(),
                     total: (req.order) ? req.order.total : 0,
@@ -22,24 +20,10 @@ module.exports = function (express, models, config) {
             },
 
             "post": function (req, res) {
-                console.log(req.body);
-                var stripeToken = req.body.stripeToken;
-                var charge = stripe.charges.create({
-                    amount: parseInt(parseFloat(req.order.total).toFixed(2) * 100),
-                    currency: 'usd',
-                    source: stripeToken,
-                    description: 'Sample Charge',
-                }, function (err, charge) {
-                    if (err) {
-                        req.flash('dangerMessage', 'There was a problem completing your order. Please call 616-216-5610 for help.');
-                        res.redirect(config.public.home);
-                    }
-                    console.log(charge)
-                    req.flash('successMessage', 'Your order was completed! Watch for an email confirmation.');
-                    res.redirect(config.public.home);
-                })
-
+                req.flash('successMessage', 'Your order was completed! Watch for an email confirmation.');
+                res.redirect(config.public.home);
             }
+
         },
 
         //Payment

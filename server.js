@@ -57,7 +57,6 @@ app.use(validator({
     customValidators: middleware.customValidators
 }));
 app.set('view engine', 'ejs'); // templating
-app.use(middleware.templateHelpers);
 
 // integrate with passport
 app.use(session({
@@ -85,6 +84,7 @@ app.use(flash());
 app.use(middleware.flashAlert);
 app.use(middleware.flashForm);
 app.use(middleware.flashBody);
+app.use(middleware.templateHelpers);
 
 //Serve static files
 //app.use(express.static('public', {maxAge: 86400000}));

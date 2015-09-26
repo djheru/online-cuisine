@@ -40,10 +40,14 @@
                             <div class="margin-top-1 progress active" style="height: 8px;">
                                 <div id="progress" class="progress-bar progress-bar-success" style="width: 25%"></div>
                             </div>
-                            <div id="alertContainer" class="hidden">
-                                <div class="alert alert-danger">
 
-                                </div>
+                            <div id="flashContainer">
+                                <!-- flash messages -->
+                                <% include include/flash %>
+                            </div>
+
+                            <div id="alertContainer" class="hidden">
+                                <div class="alert alert-danger"></div>
                             </div>
 
                             <div class="tab-content margin-top-3">
@@ -291,7 +295,14 @@
 
                 initialize = function () {
                     console.log('init')
-                    $(document).trigger(CARRYOUT_ORDER);
+                    <% console.log(locals) %>
+                    <% if (locals.initTab) { %>
+                        var tabIndex = parseInt("<%= locals.initTab %>") || 0;
+                        console.log('tabIndex: ', tabIndex);
+                        $wizard.bootstrapWizard('show', tabIndex);
+                    <% } else { %>
+                        $(document).trigger(CARRYOUT_ORDER);
+                    <% } %>
                 };
 
             $(document)

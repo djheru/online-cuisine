@@ -6,7 +6,8 @@ var _ = require('underscore'),
     dealMiddleware = require('./deal'),
     orderMiddleware = require('./order'),
     utils = require('./utils'),
-    menuMiddleware = require('./menu');
+    menuMiddleware = require('./menu'),
+    checkoutMiddleware = require('./checkout');
 module.exports = {
 
     "isLoggedIn": function (req, res, next) {
@@ -23,7 +24,7 @@ module.exports = {
 
         // handle CSRF token errors here
         res.status(403)
-        res.send('session has expired or form tampered with')
+        res.send('The session has expired or the form has been tampered with')
     },
     "logErrors": function (err, req, res, next)  {
         appGlobals.logger.error(err.stack);
@@ -78,10 +79,12 @@ module.exports = {
     "templateHelpers": function (req, res, next) {
         res.locals.moment = moment;
         res.locals._ = _;
+        res.locals.initTab = req.flash('initTab');
         return next();
     },
     "customValidators": customValidators,
     "menu": menuMiddleware,
     "deal": dealMiddleware,
-    "order": orderMiddleware
+    "order": orderMiddleware,
+    "checkout": checkoutMiddleware
 }

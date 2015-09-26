@@ -21,8 +21,12 @@ nav.navbar  {
 
 body.home > .alert {
     margin-bottom: 0px;
-    font-size: 1em;
+    font-size: 13px;
     font-weight: bold;
+}
+
+.alert {
+    font-size: 14px;
 }
 
 input:-webkit-autofill, input:-webkit-autofill:focus {

@@ -19,6 +19,8 @@ module.exports = function (express) {
     //Checkout
     routeExport.route(config.checkout.checkout)
         .get(handlers.checkout.get)
+        .post(middleware.checkout.stripeCharge)
+        .post(middleware.checkout.updateOrder)
         .post(handlers.checkout.post);
 
     return routeExport;
