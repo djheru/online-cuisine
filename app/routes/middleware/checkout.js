@@ -23,6 +23,7 @@ module.exports = {
                 req.flash('dangerMessage', 'There was a problem completing your order. Please call 616-216-5610 for help.');
                 req.flash('dangerMessage', 'The message from the credit card processor was: "' + err.message + '"');
                 req.flash('initTab', 1);
+                req.flash('formBody', req.body);
                 return res.redirect('back');
             } else {
                 req.charge = charge;
